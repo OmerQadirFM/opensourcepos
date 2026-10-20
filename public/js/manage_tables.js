@@ -1,108 +1,86 @@
-(function(dialog_support, $) {
+(function(dialogSupport, $) {
+    'use strict';
 
-    let btn_id, dialog_ref;
+    let clickedButton;
+    let activeModal;
 
     const hide = function() {
-        dialog_ref && dialog_ref.close();
-    };
-
-    const clicked_id = function() {
-        return btn_id;
-    };
-
-    const submit = function(button_id) {
-        return function(dlog_ref) {
-            const form = $('form', dlog_ref.$modalBody).first();
-            const validator = form.data('validator');
-            const submitted = validator && validator.formSubmitted;
-
-            btn_id = button_id;
-            dialog_ref = dlog_ref;
-
-            if (button_id == 'submit' && (!submitted && btn_id != "btnNew")) {
-                form.submit();
-                validator.valid() && $('#submit').prop('disabled', true).css('opacity', 0.5);
-            }
-            return false;
-        }
-    };
-
-    const button_class = {
-        'submit' : 'btn-primary',
-        'delete' : 'btn-danger'
+        if (activeModal) activeModal.hide();
     };
 
     const init = function(selector) {
-
-        const buttons = function(event) {
-            const buttons = [];
-            let dialog_class = 'modal-dlg';
-            $.each($(this).attr('class').split(/\s+/), function(classIndex, className) {
-                const width_class = className.split("modal-dlg-");
-                if (width_class && width_class.length > 1) {
-                    dialog_class = className;
+        $(selector).off('click.osposDialog').on('click.osposDialog', function(event) {
+            event.preventDefault();
+            const link = this;
+            const element = document.createElement('div');
+            element.className = 'modal fade';
+            element.tabIndex = -1;
+            element.setAttribute('aria-modal', 'true');
+            element.setAttribute('role', 'dialog');
+            const wide = link.classList.contains('modal-dlg-wide');
+            element.innerHTML = '<div class="modal-dialog modal-dialog-scrollable' + (wide ? ' modal-lg' : '') + '"><div class="modal-content"><div class="modal-header"><h2 class="modal-title fs-5"></h2><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="spinner-border" role="status"></div></div><div class="modal-footer"></div></div></div>';
+            element.querySelector('.modal-title').textContent = link.getAttribute('title') || '';
+            const closeLabel = lang.line('common_close');
+            element.querySelector('.btn-close').setAttribute('aria-label', closeLabel);
+            const titleId = 'dialog-title-' + Date.now();
+            element.querySelector('.modal-title').id = titleId;
+            element.setAttribute('aria-labelledby', titleId);
+            const body = element.querySelector('.modal-body');
+            const footer = element.querySelector('.modal-footer');
+            const modal = new bootstrap.Modal(element);
+            activeModal = modal;
+            const buttons = Object.entries($(link).data()).filter(([name]) => /^btn[A-Z]/.test(name));
+            if (!buttons.length) buttons.push(['btnClose', closeLabel]);
+            clickedButton = buttons.some(([name]) => name === 'btnNew') ? 'new' : 'submit';
+            buttons.forEach(([name, label]) => {
+                const buttonId = name.slice(3).toLowerCase();
+                const button = document.createElement('button');
+                button.type = 'button';
+                button.id = buttonId;
+                button.className = 'btn ' + (buttonId === 'delete' ? 'btn-danger' : 'btn-primary');
+                button.textContent = label;
+                button.addEventListener('click', () => {
+                    clickedButton = buttonId;
+                    if (buttonId === 'close') {
+                        modal.hide();
+                        return;
+                    }
+                    const form = $(body).find('form').first();
+                    if (!form.length) return;
+                    const validator = form.data('validator');
+                    if (!validator || validator.form()) form.trigger('submit');
+                });
+                footer.append(button);
+            });
+            body.addEventListener('keydown', event => {
+                if (event.key !== 'Enter' || event.target.matches('textarea, button') || event.target.closest('.ts-wrapper, .ui-autocomplete')) return;
+                const button = footer.querySelector('#new, #submit');
+                if (button) {
+                    event.preventDefault();
+                    button.click();
                 }
             });
-
-            const has_new_btn = "btnNew" in $(this).data();
-            $.each($(this).data(), function(name, value) {
-                const btn_class = name.split("btn");
-                if (btn_class && btn_class.length > 1) {
-                    const btn_name = btn_class[1].toLowerCase();
-                    const is_submit = btn_name == 'submit';
-                    const is_new = btn_name === 'new';
-                    const is_enter = has_new_btn ? is_new: is_submit;
-                    buttons.push({
-                        id: btn_name,
-                        label: value,
-                        cssClass: button_class[btn_name],
-                        hotkey: is_enter ? 13 : undefined, // Enter
-                        action: submit(btn_name)
-                    });
-                }
-            });
-
-            !buttons.length && buttons.push({
-                id: 'close',
-                label: lang.line('common_close'),
-                cssClass: 'btn-primary',
-                action: function(dialog_ref) {
-                    dialog_ref.close();
-                }
-            });
-            return { buttons: buttons.sort(function(a, b) {
-                return ($(b).text()) < ($(a).text()) ? -1 : 1;
-            }), cssClass: dialog_class};
-        };
-
-        $(selector).each(function(index, $element) {
-
-            return $(selector).off('click').on('click', function(event) {
-                let $link = $(event.target);
-                $link = !$link.is("a, button") ? $link.parents("a, button") : $link ;
-                BootstrapDialog.show($.extend({
-                    title: $link.attr('title'),
-                    message: (function() {
-                        const node = $('<div></div>');
-                        $.get($link.attr('href') || $link.data('href'), function(data) {
-                            node.html(data);
-                        });
-                        return node;
-                    })
-                }, buttons.call(this, event)));
-
-                return false;
-            });
+            element.addEventListener('hidden.bs.modal', () => {
+                $(body).find('select').each(function() { if (this.tomselect) this.tomselect.destroy(); });
+                $(body).find('input').each(function() { if (this._flatpickr) this._flatpickr.destroy(); });
+                modal.dispose();
+                element.remove();
+                if (activeModal === modal) activeModal = undefined;
+                link.focus();
+            }, {once: true});
+            document.body.append(element);
+            modal.show();
+            $.get(link.getAttribute('href') || link.dataset.href)
+                .done(html => {
+                    $(body).html(html);
+                    OSPOS.init(body);
+                    modal.handleUpdate();
+                })
+                .fail(() => { body.textContent = lang.line('common_correct_errors'); });
         });
     };
 
-    $.extend(dialog_support, {
-        init: init,
-        submit: submit,
-        hide: hide,
-        clicked_id: clicked_id
-    });
-
+    $.extend(dialogSupport, {init: init, hide: hide, clicked_id: () => clickedButton});
 })(window.dialog_support = window.dialog_support || {}, jQuery);
 
 (function(table_support, $) {
@@ -256,7 +234,7 @@
                 dialog_support.init("a.modal-dlg");
             },
             loadingTemplate: function (loadingMessage) {
-                return '<div class="loading-message text-center"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span><span role="status">' + loadingMessage + '</span></div>';
+                return '<div class="loading-message text-center"><span class="bi bi-arrow-clockwise icon-spin"></span><span role="status">' + loadingMessage + '</span></div>';
             },
             loadingFontSize: '1em',
             queryParamsType: 'limit',
@@ -340,14 +318,14 @@
 (function(form_support, $) {
 
     form_support.error = {
-        errorClass: "has-error",
+        errorClass: "is-invalid",
         errorLabelContainer: "#error_message_box",
         wrapper: "li",
         highlight: function (e) {
-            $(e).closest('.form-group').addClass('has-error');
+            $(e).closest('.mb-3').addClass('is-invalid');
         },
         unhighlight: function (e) {
-            $(e).closest('.form-group').removeClass('has-error');
+            $(e).closest('.mb-3').removeClass('is-invalid');
         }
     };
 

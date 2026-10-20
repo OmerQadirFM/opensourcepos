@@ -11,30 +11,30 @@
 </script>
 
 <ul class="nav nav-tabs" data-tabs="tabs">
-    <li class="active" role="presentation">
-        <a data-toggle="tab" href="#tax_codes_tab" title="<?= lang(ucfirst($controller_name) . '.tax_codes_configuration') ?>">
+    <li class="nav-item" role="presentation">
+        <a data-bs-toggle="tab" role="tab" class="nav-link active" href="#tax_codes_tab" title="<?= lang(ucfirst($controller_name) . '.tax_codes_configuration') ?>">
             <?= lang(ucfirst($controller_name) . '.tax_codes') ?>
         </a>
     </li>
-    <li role="presentation">
-        <a data-toggle="tab" href="#tax_jurisdictions_tab" title="<?= lang(ucfirst($controller_name) . '.tax_jurisdictions_configuration') ?>">
+    <li class="nav-item" role="presentation">
+        <a data-bs-toggle="tab" role="tab" class="nav-link" href="#tax_jurisdictions_tab" title="<?= lang(ucfirst($controller_name) . '.tax_jurisdictions_configuration') ?>">
             <?= lang(ucfirst($controller_name) . '.tax_jurisdictions') ?>
         </a>
     </li>
-    <li role="presentation">
-        <a data-toggle="tab" href="#tax_categories_tab" title="<?= lang(ucfirst($controller_name) . '.tax_categories_configuration') ?>">
+    <li class="nav-item" role="presentation">
+        <a data-bs-toggle="tab" role="tab" class="nav-link" href="#tax_categories_tab" title="<?= lang(ucfirst($controller_name) . '.tax_categories_configuration') ?>">
             <?= lang(ucfirst($controller_name) . '.tax_categories') ?>
         </a>
     </li>
-    <li role="presentation">
-        <a data-toggle="tab" href="#tax_rates_tab" title="<?= lang(ucfirst($controller_name) . '.tax_rate_configuration') ?>">
+    <li class="nav-item" role="presentation">
+        <a data-bs-toggle="tab" role="tab" class="nav-link" href="#tax_rates_tab" title="<?= lang(ucfirst($controller_name) . '.tax_rate_configuration') ?>">
             <?= lang(ucfirst($controller_name) . '.tax_rates') ?>
         </a>
     </li>
 </ul>
 
 <div class="tab-content">
-    <div class="tab-pane fade in active" id="tax_codes_tab">
+    <div class="tab-pane fade show active" id="tax_codes_tab">
         <?= view('taxes/tax_codes') ?>
     </div>
     <div class="tab-pane" id="tax_jurisdictions_tab">

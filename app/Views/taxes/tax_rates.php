@@ -19,15 +19,15 @@
 </script>
 
 <div id="title_bar" class="btn-toolbar">
-    <button class="btn btn-info btn-sm pull-right modal-dlg" data-btn-submit="<?= lang('Common.submit') ?>" data-href="<?= esc("$controller_name/view") ?>" title="<?= lang(ucfirst($controller_name) . ".new") ?>">
-        <span class="glyphicon glyphicon-usd">&nbsp;</span><?= lang(ucfirst($controller_name) . ".new") ?>
+    <button class="btn btn-info btn-sm float-end modal-dlg" data-btn-submit="<?= lang('Common.submit') ?>" data-href="<?= esc("$controller_name/view") ?>" title="<?= lang(ucfirst($controller_name) . ".new") ?>">
+        <span class="bi bi-currency-dollar">&nbsp;</span><?= lang(ucfirst($controller_name) . ".new") ?>
     </button>
 </div>
 
 <div id="toolbar">
-    <div class="pull-left btn-toolbar">
-        <button id="delete" class="btn btn-default btn-sm">
-            <span class="glyphicon glyphicon-trash">&nbsp;</span><?= lang('Common.delete') ?>
+    <div class="float-start btn-toolbar">
+        <button id="delete" class="btn btn-secondary btn-sm">
+            <span class="bi bi-trash">&nbsp;</span><?= lang('Common.delete') ?>
         </button>
     </div>
 </div>

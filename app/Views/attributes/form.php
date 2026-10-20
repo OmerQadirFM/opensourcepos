@@ -13,31 +13,31 @@
 <div id="required_fields_message"><?= lang('Common.fields_required_message') ?></div>
 <ul id="error_message_box" class="error_message_box"></ul>
 
-<?= form_open("attributes/saveDefinition/$definition_id", ['id' => 'attribute_form', 'class' => 'form-horizontal']) ?>
+<?= form_open("attributes/saveDefinition/$definition_id", ['id' => 'attribute_form', 'class' => 'ospos-form']) ?>
     <fieldset id="attribute_basic_info">
 
-        <div class="form-group form-group-sm">
-            <?= form_label(lang('Attributes.definition_name'), 'definition_name', ['class' => 'control-label col-xs-3 text-danger required']) ?>
-            <div class="col-xs-8">
+        <div class="row mb-3 ">
+            <?= form_label(lang('Attributes.definition_name'), 'definition_name', ['class' => 'col-form-label col-3 text-danger required']) ?>
+            <div class="col-8">
                 <?= form_input([
                     'name'  => 'definition_name',
                     'id'    => 'definition_name',
-                    'class' => 'form-control input-sm',
+                    'class' => 'form-control form-control-sm',
                     'value' => $definition_info->definition_name
                 ]) ?>
             </div>
         </div>
 
-        <div class="form-group form-group-sm">
-            <?= form_label(lang('Attributes.definition_type'), 'definition_type', ['class' => 'control-label col-xs-3 text-danger required']) ?>
-            <div class="col-xs-8">
+        <div class="row mb-3 ">
+            <?= form_label(lang('Attributes.definition_type'), 'definition_type', ['class' => 'col-form-label col-3 text-danger required']) ?>
+            <div class="col-8">
                 <?= form_dropdown('definition_type', DEFINITION_TYPES, array_search($definition_info->definition_type, DEFINITION_TYPES), 'id="definition_type" class="form-control"') ?>
             </div>
         </div>
 
-        <div class="form-group form-group-sm">
-            <?= form_label(lang('Attributes.definition_group'), 'definition_group', ['class' => 'control-label col-xs-3']) ?>
-            <div class="col-xs-8">
+        <div class="row mb-3 ">
+            <?= form_label(lang('Attributes.definition_group'), 'definition_group', ['class' => 'col-form-label col-3']) ?>
+            <div class="col-8">
                 <?= form_dropdown(
                     'definition_group',
                     $definition_group,
@@ -47,51 +47,48 @@
             </div>
         </div>
 
-        <div class="form-group form-group-sm hidden">
-            <?= form_label(lang('Attributes.definition_flags'), 'definition_flags', ['class' => 'control-label col-xs-3']) ?>
-            <div class="col-xs-8">
+        <div class="row mb-3  hidden">
+            <?= form_label(lang('Attributes.definition_flags'), 'definition_flags', ['class' => 'col-form-label col-3']) ?>
+            <div class="col-8">
                 <div class="input-group">
                     <?= form_multiselect('definition_flags[]', $definition_flags, array_keys($selected_definition_flags), [
                         'id'                        => 'definition_flags',
-                        'class'                     => 'selectpicker show-menu-arrow',
-                        'data-none-selected-text'   => lang('Common.none_selected_text'),
-                        'data-selected-text-format' => 'count > 1',
-                        'data-style'                => 'btn-default btn-sm',
-                        'data-width'                => 'fit'
-                    ]) ?>
+                        'class'                     => 'search-select ',
+                        'data-placeholder'   => lang('Common.none_selected_text'),
+]) ?>
                 </div>
             </div>
         </div>
 
-        <div class="form-group form-group-sm hidden">
-            <?= form_label(lang('Attributes.definition_unit'), 'definition_units', ['class' => 'control-label col-xs-3']) ?>
-            <div class="col-xs-8">
+        <div class="row mb-3  hidden">
+            <?= form_label(lang('Attributes.definition_unit'), 'definition_units', ['class' => 'col-form-label col-3']) ?>
+            <div class="col-8">
                 <div class="input-group">
                     <?= form_input([
                         'name'  => 'definition_unit',
                         'value' => $definition_info->definition_unit,
-                        'class' => 'form-control input-sm',
+                        'class' => 'form-control form-control-sm',
                         'id'    => 'definition_unit'
                     ]) ?>
                 </div>
             </div>
         </div>
 
-        <div class="form-group form-group-sm hidden">
-            <?= form_label(lang('Attributes.definition_values'), 'definition_value', ['class' => 'control-label col-xs-3']) ?>
-            <div class="col-xs-8">
+        <div class="row mb-3  hidden">
+            <?= form_label(lang('Attributes.definition_values'), 'definition_value', ['class' => 'col-form-label col-3']) ?>
+            <div class="col-8">
                 <div class="input-group">
-                    <?= form_input(['name' => 'definition_value', 'class' => 'form-control input-sm', 'id' => 'definition_value']) ?>
-                    <span id="add_attribute_value" class="input-group-addon input-sm btn btn-default">
-                        <span class="glyphicon glyphicon-plus-sign"></span>
+                    <?= form_input(['name' => 'definition_value', 'class' => 'form-control form-control-sm', 'id' => 'definition_value']) ?>
+                    <span id="add_attribute_value" class="input-group-text form-control-sm btn btn-secondary">
+                        <span class="bi bi-plus-circle"></span>
                     </span>
                 </div>
             </div>
         </div>
 
-        <div class="form-group form-group-sm hidden">
-            <?= form_label('&nbsp;', 'definition_list_group', ['class' => 'control-label col-xs-3']) ?>
-            <div class="col-xs-8">
+        <div class="row mb-3  hidden">
+            <?= form_label('&nbsp;', 'definition_list_group', ['class' => 'col-form-label col-3']) ?>
+            <div class="col-8">
                 <ul id="definition_list_group" class="list-group"></ul>
             </div>
         </div>
@@ -125,8 +122,8 @@
             if (definition_id == -1) {
                 $('#definition_name').prop("disabled", true);
                 $('#definition_type').prop("disabled", true);
-                $('#definition_group').parents('.form-group').toggleClass("hidden", true);
-                $('#definition_flags').parents('.form-group').toggleClass('hidden', true);
+                $('#definition_group').parents('.mb-3').toggleClass("d-none", true);
+                $('#definition_flags').parents('.mb-3').toggleClass('d-none', true);
             }
         }
         disable_category_dropdown();
@@ -137,22 +134,19 @@
             const is_no_group = $('#definition_type').val() !== '0';
             const is_category_dropdown = definition_id == -1;
 
-            $('#definition_value, #definition_list_group').parents('.form-group').toggleClass('hidden', is_dropdown);
-            $('#definition_unit').parents('.form-group').toggleClass('hidden', is_decimal);
+            $('#definition_value, #definition_list_group').parents('.mb-3').toggleClass('d-none', is_dropdown);
+            $('#definition_unit').parents('.mb-3').toggleClass('d-none', is_decimal);
 
             // Appropriately show definition flags if not category_dropdown
             if (definition_id != -1) {
-                $('#definition_flags').parents('.form-group').toggleClass('hidden', !is_no_group);
+                $('#definition_flags').parents('.mb-3').toggleClass('d-none', !is_no_group);
             }
         };
 
         $('#definition_type').change(show_hide_fields);
         show_hide_fields();
 
-        $('.selectpicker').each(function() {
-            const $selectpicker = $(this);
-            $.fn.selectpicker.call($selectpicker, $selectpicker.data());
-        });
+        OSPOS.enhanceSelects(document);
 
         const remove_attribute_value = function() {
             const value = $(this).parents("li").text();
@@ -192,7 +186,7 @@
                 }
             }
 
-            $('#definition_list_group').append('<li class="list-group-item">' + DOMPurify.sanitize(value) + '<a href="javascript:void(0);"><span class="glyphicon glyphicon-trash pull-right"></span></a></li>')
+            $('#definition_list_group').append('<li class="list-group-item">' + DOMPurify.sanitize(value) + '<a href="javascript:void(0);"><span class="bi bi-trash float-end"></span></a></li>')
                 .find(':last-child a').click(remove_attribute_value);
             $('#definition_value').val('');
         };

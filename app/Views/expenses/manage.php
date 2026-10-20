@@ -61,28 +61,25 @@
 <?= view('partial/print_receipt', ['print_after_sale' => false, 'selected_printer' => 'takings_printer']) ?>
 
 <div id="title_bar" class="print_hide btn-toolbar">
-    <button onclick="printdoc()" class="btn btn-info btn-sm pull-right">
-        <span class="glyphicon glyphicon-print">&nbsp;</span><?= lang('Common.print') ?>
+    <button onclick="printdoc()" class="btn btn-info btn-sm float-end">
+        <span class="bi bi-printer">&nbsp;</span><?= lang('Common.print') ?>
     </button>
-    <button class="btn btn-info btn-sm pull-right modal-dlg" data-btn-submit="<?= lang('Common.submit') ?>" data-href="<?= "$controller_name/view" ?>" title="<?= lang(ucfirst($controller_name) . '.new') ?>">
-        <span class="glyphicon glyphicon-tags">&nbsp;</span><?= lang(ucfirst($controller_name) . '.new') ?>
+    <button class="btn btn-info btn-sm float-end modal-dlg" data-btn-submit="<?= lang('Common.submit') ?>" data-href="<?= "$controller_name/view" ?>" title="<?= lang(ucfirst($controller_name) . '.new') ?>">
+        <span class="bi bi-tags">&nbsp;</span><?= lang(ucfirst($controller_name) . '.new') ?>
     </button>
 </div>
 
 <div id="toolbar">
-    <div class="pull-left form-inline" role="toolbar">
-        <button id="delete" class="btn btn-default btn-sm print_hide">
-            <span class="glyphicon glyphicon-trash">&nbsp;</span><?= lang('Common.delete') ?>
+    <div class="float-start d-flex flex-wrap align-items-center gap-2" role="toolbar">
+        <button id="delete" class="btn btn-secondary btn-sm print_hide">
+            <span class="bi bi-trash">&nbsp;</span><?= lang('Common.delete') ?>
         </button>
-        <?= form_input(['name' => 'daterangepicker', 'class' => 'form-control input-sm', 'id' => 'daterangepicker']) ?>
+        <?= form_input(['name' => 'daterangepicker', 'class' => 'form-control form-control-sm', 'id' => 'daterangepicker']) ?>
         <?= form_multiselect('filters[]', esc($filters), $selected_filters ?? [], [
             'id'                        => 'filters',
-            'data-none-selected-text'   => lang('Common.none_selected_text'),
-            'class'                     => 'selectpicker show-menu-arrow',
-            'data-selected-text-format' => 'count > 1',
-            'data-style'                => 'btn-default btn-sm',
-            'data-width'                => 'fit'
-        ]) ?>
+            'data-placeholder'   => lang('Common.none_selected_text'),
+            'class'                     => 'search-select ',
+]) ?>
     </div>
 </div>
 

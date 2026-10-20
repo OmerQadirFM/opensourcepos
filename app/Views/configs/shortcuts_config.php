@@ -23,7 +23,7 @@ $shortcutLabels = [
 ];
 ?>
 
-<?= form_open('config/saveShortcuts', ['id' => 'shortcuts_config_form', 'class' => 'form-horizontal']) ?>
+<?= form_open('config/saveShortcuts', ['id' => 'shortcuts_config_form', 'class' => 'ospos-form']) ?>
     <div id="config_wrapper">
         <fieldset id="config_info">
 
@@ -31,15 +31,15 @@ $shortcutLabels = [
             <ul id="shortcuts_error_message_box" class="error_message_box"></ul>
 
             <?php foreach ($shortcutLabels as $name => $label): ?>
-                <div class="form-group form-group-sm">
-                    <?= form_label($label, 'key_' . $name, ['class' => 'control-label col-xs-6 col-sm-5 col-md-4 col-lg-3']) ?>
-                    <div class="col-xs-6 col-sm-3 col-md-2">
+                <div class="row mb-3 ">
+                    <?= form_label($label, 'key_' . $name, ['class' => 'col-form-label col-6 col-sm-5 col-md-4 col-lg-3']) ?>
+                    <div class="col-6 col-sm-3 col-md-2">
                         <?php $keyboardShortcutSelectedValue = $keyboardShortcuts[$name]['value'] ?? ''; ?>
                         <?= form_dropdown(
                             'key_' . $name,
                             $keyboardShortcutOptions,
                             $keyboardShortcutSelectedValue,
-                            'class="form-control input-sm"'
+                            'class="form-control form-control-sm"'
                         ) ?>
                     </div>
                 </div>
@@ -49,7 +49,7 @@ $shortcutLabels = [
                 'name'  => 'submit_shortcuts',
                 'id'    => 'submit_shortcuts',
                 'value' => lang('Common.submit'),
-                'class' => 'btn btn-primary btn-sm pull-right'
+                'class' => 'btn btn-primary btn-sm float-end'
             ]) ?>
         </fieldset>
     </div>

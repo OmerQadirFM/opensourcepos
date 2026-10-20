@@ -4,7 +4,7 @@
  */
 ?>
 
-<?= form_open('config/saveLocations/', ['id' => 'location_config_form', 'class' => 'form-horizontal']) ?>
+<?= form_open('config/saveLocations/', ['id' => 'location_config_form', 'class' => 'ospos-form']) ?>
     <div id="config_wrapper">
         <fieldset id="config_info">
 
@@ -19,7 +19,7 @@
                 'name'  => 'submit_stock',
                 'id'    => 'submit_stock',
                 'value' => lang('Common.submit'),
-                'class' => 'btn btn-primary btn-sm pull-right'
+                'class' => 'btn btn-primary btn-sm float-end'
             ]) ?>
 
         </fieldset>
@@ -43,8 +43,8 @@
             const block = $(this).parent().clone(true);
             const new_block = block.insertAfter($(this).parent());
             const new_block_id = 'stock_location[]';
-            $(new_block).find('label').html("<?= lang('Config.stock_location') ?> " + ++location_count).attr('for', new_block_id).attr('class', 'control-label col-xs-3 col-sm-2 text-danger required');
-            $(new_block).find('input').attr('id', new_block_id).removeAttr('disabled').attr('name', new_block_id).attr('class', 'form-control input-sm required').val('');
+            $(new_block).find('label').html("<?= lang('Config.stock_location') ?> " + ++location_count).attr('for', new_block_id).attr('class', 'col-form-label col-3 col-sm-2 text-danger required');
+            $(new_block).find('input').attr('id', new_block_id).removeAttr('disabled').attr('name', new_block_id).attr('class', 'form-control form-control-sm required').val('');
             hide_show_remove();
         };
 

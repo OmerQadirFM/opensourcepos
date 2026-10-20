@@ -5,7 +5,7 @@
  */
 ?>
 
-<?= form_open('taxes/save_tax_jurisdictions/', ['id' => 'tax_jurisdictions_form', 'class' => 'form-horizontal']) ?>
+<?= form_open('taxes/save_tax_jurisdictions/', ['id' => 'tax_jurisdictions_form', 'class' => 'ospos-form']) ?>
     <div id="config_wrapper">
         <fieldset id="config_info">
 
@@ -20,7 +20,7 @@
                 'name'  => 'submit_tax_jurisdictions',
                 'id'    => 'submit_tax_jurisdictions',
                 'value' => lang('Common.submit'),
-                'class' => 'btn btn-primary btn-sm pull-right'
+                'class' => 'btn btn-primary btn-sm float-end'
             ]) ?>
 
         </fieldset>
@@ -54,13 +54,13 @@
             ++tax_jurisdictions_count;
             const new_jurisdiction_name_id = 'jurisdiction_name_' + tax_jurisdictions_count;
 
-            $(new_block).find('label').html("<?= lang('Taxes.tax_jurisdiction') ?> " + tax_jurisdictions_count).attr('for', new_jurisdiction_name_id).attr('class', 'control-label col-xs-2');
-            $(new_block).find("input[name='jurisdiction_name[]']").attr('id', new_jurisdiction_name_id).removeAttr('disabled').attr('class', 'form-control required input-sm').val('');
-            $(new_block).find("input[name='tax_group[]']").removeAttr('disabled').attr('class', 'form-control required input-sm').val('');
-            $(new_block).find("select[name='tax_type[]']").removeAttr('disabled').attr('class', 'form-control required input-sm').val('');
-            $(new_block).find("input[name='reporting_authority[]']").removeAttr('disabled').attr('class', 'form-control input-sm').val('');
-            $(new_block).find("input[name='tax_group_sequence[]']").removeAttr('disabled').attr('class', 'form-control input-sm').val('');
-            $(new_block).find("input[name='cascade_sequence[]']").removeAttr('disabled').attr('class', 'form-control input-sm').val('');
+            $(new_block).find('label').html("<?= lang('Taxes.tax_jurisdiction') ?> " + tax_jurisdictions_count).attr('for', new_jurisdiction_name_id).attr('class', 'col-form-label col-2');
+            $(new_block).find("input[name='jurisdiction_name[]']").attr('id', new_jurisdiction_name_id).removeAttr('disabled').attr('class', 'form-control required form-control-sm').val('');
+            $(new_block).find("input[name='tax_group[]']").removeAttr('disabled').attr('class', 'form-control required form-control-sm').val('');
+            $(new_block).find("select[name='tax_type[]']").removeAttr('disabled').attr('class', 'form-control required form-control-sm').val('');
+            $(new_block).find("input[name='reporting_authority[]']").removeAttr('disabled').attr('class', 'form-control form-control-sm').val('');
+            $(new_block).find("input[name='tax_group_sequence[]']").removeAttr('disabled').attr('class', 'form-control form-control-sm').val('');
+            $(new_block).find("input[name='cascade_sequence[]']").removeAttr('disabled').attr('class', 'form-control form-control-sm').val('');
             $(new_block).find("input[name='jurisdiction_id[]']").val('-1');
             hide_show_remove_tax_jurisdiction();
         };

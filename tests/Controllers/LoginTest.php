@@ -25,7 +25,7 @@ class LoginTest extends CIUnitTestCase
     private array $usedKeys = [];
 
     #[DataProvider('localeDirections')]
-    public function testIndex_AcceptsLocaleDirectionAndStylesheet(string $languageCode, string $direction, string $stylesheet): void
+    public function testIndex_AcceptsLocaleDirectionAndStylesheet(string $languageCode, string $direction, string $stylesheet, string $theme = 'flatly'): void
     {
         $settings = $this->db->table('app_config')
             ->whereIn('key', ['language_code', 'theme'])
@@ -33,15 +33,17 @@ class LoginTest extends CIUnitTestCase
 
         try {
             $this->db->table('app_config')->where('key', 'language_code')->update(['value' => $languageCode]);
-            $this->db->table('app_config')->where('key', 'theme')->update(['value' => 'flatly']);
+            $this->db->table('app_config')->where('key', 'theme')->update(['value' => $theme]);
 
+            Services::cache()->delete('settings');
             $response = $this->get('/login');
             $response->assertStatus(200);
 
             $html = $response->response()->getBody();
             $this->assertStringContainsString('<html lang="' . $languageCode . '" dir="' . $direction . '">', $html);
-            $this->assertStringContainsString('resources/bootswatch5/flatly/' . $stylesheet, $html);
+            $this->assertStringContainsString('resources/bootswatch/flatly/' . $stylesheet, $html);
         } finally {
+            Services::cache()->delete('settings');
             foreach ($settings as $setting) {
                 $this->db->table('app_config')->where('key', $setting['key'])->update(['value' => $setting['value']]);
             }
@@ -55,6 +57,8 @@ class LoginTest extends CIUnitTestCase
             'Sorani'         => ['ckb', 'rtl', 'bootstrap.rtl.min.css'],
             'Arabic Egypt'   => ['ar-EG', 'rtl', 'bootstrap.rtl.min.css'],
             'Arabic Lebanon' => ['ar-LB', 'rtl', 'bootstrap.rtl.min.css'],
+            'Legacy paper theme' => ['en', 'ltr', 'bootstrap.min.css', 'paper'],
+            'Legacy readable theme' => ['ar-EG', 'rtl', 'bootstrap.rtl.min.css', 'readable'],
         ];
     }
 

@@ -7,9 +7,9 @@
  */
 ?>
 
-<div class="form-group form-group-sm">
-    <?= form_label(lang('Attributes.definition_name'), 'definition_name_label', ['class' => 'control-label col-xs-3']) ?>
-    <div class="col-xs-8">
+<div class="row mb-3 ">
+    <?= form_label(lang('Attributes.definition_name'), 'definition_name_label', ['class' => 'col-form-label col-3']) ?>
+    <div class="col-8">
         <?= form_dropdown([
             'name'     => 'definition_name',
             'options'  => esc($definition_names),
@@ -22,9 +22,9 @@
 
 <?php foreach ($definition_values as $definition_id => $definition_value) { ?>
 
-    <div class="form-group form-group-sm">
-        <?= form_label(esc($definition_value['definition_name']), esc($definition_value['definition_name']), ['class' => 'control-label col-xs-3']) ?>
-        <div class="col-xs-8">
+    <div class="row mb-3 ">
+        <?= form_label(esc($definition_value['definition_name']), esc($definition_value['definition_name']), ['class' => 'col-form-label col-3']) ?>
+        <div class="col-8">
             <div class="input-group">
                 <?php
                 echo form_hidden("attribute_ids[$definition_id]", strval($definition_value['attribute_id']));
@@ -36,7 +36,7 @@
                         echo form_input([
                             'name'               => "attribute_links[$definition_id]",
                             'value'              => to_date($value),
-                            'class'              => 'form-control input-sm datetime',
+                            'class'              => 'form-control form-control-sm datetime',
                             'data-definition-id' => $definition_id,
                             'readonly'           => 'true'
                         ]);
@@ -85,14 +85,14 @@
                             'id'                 => "attribute_links[$definition_id]",
                             'value'              => 1,
                             'checked'            => $value == 1,
-                            'class'              => 'checkbox-inline',
+                            'class'              => 'd-inline-flex align-items-center gap-1',
                             'data-definition-id' => $definition_id
                         ]);
                         break;
                 }
                 ?>
-                <span class="input-group-addon input-sm btn btn-default remove_attribute_btn">
-                    <span class="glyphicon glyphicon-trash"></span>
+                <span class="input-group-text form-control-sm btn btn-secondary remove_attribute_btn">
+                    <span class="bi bi-trash"></span>
                 </span>
             </div>
         </div>
@@ -102,11 +102,11 @@
 
 <script type="text/javascript">
     (function() {
-        <?= view('partial/datepicker_locale', ['format' => dateformat_bootstrap($config['dateformat'])]) ?>
+        <?= view('partial/datepicker_locale', ['format' => dateformat_momentjs($config['dateformat'])]) ?>
 
         const enable_delete = function() {
             $('.remove_attribute_btn').click(function() {
-                $(this).parents('.form-group').remove();
+                $(this).parents('.mb-3').remove();
             });
         };
 

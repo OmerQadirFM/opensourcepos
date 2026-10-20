@@ -21,9 +21,11 @@ $shortcut_labels = [
 
 <div class="container-fluid">
 
-    <ul class="nav nav-tabs" id="SCTabs" data-toggle="tab">
-        <li class="active"><a href="#system_shortcuts" data-toggle="tab" title="<?= lang('Sales.key_system'); ?>"><?= lang('Sales.key_system'); ?></a></li>
-        <li><a href="#browser_shortcuts" data-toggle="tab" title="<?= lang('Sales.key_browser'); ?>"><?= lang('Sales.key_browser'); ?></a></li>
+    <ul class="nav nav-tabs" id="SCTabs" data-bs-toggle="tab">
+        <li class="nav-item">
+        <a href="#system_shortcuts" data-bs-toggle="tab" role="tab" class="nav-link active" title="<?= lang('Sales.key_system'); ?>"><?= lang('Sales.key_system'); ?></a></li>
+        <li class="nav-item">
+        <a href="#browser_shortcuts" data-bs-toggle="tab" role="tab" class="nav-link" title="<?= lang('Sales.key_browser'); ?>"><?= lang('Sales.key_browser'); ?></a></li>
     </ul>
 
     <div class="tab-content">

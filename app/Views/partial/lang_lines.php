@@ -2,8 +2,9 @@
     (function(lang, $) {
 
         const lines = {
-            'common_submit': "<?= lang('Common.submit') ?>",
-            'common_close': "<?= lang('Common.close') ?>"
+            'common_submit': "<?= esc(lang('Common.submit'), 'js') ?>",
+            'common_close': "<?= esc(lang('Common.close'), 'js') ?>",
+            'common_correct_errors': "<?= esc(lang('Common.correct_errors'), 'js') ?>"
         };
 
         $.extend(lang, {

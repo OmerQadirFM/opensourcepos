@@ -1,11 +1,12 @@
 <?php
 /**
- * @var object $user_info
- * @var array $allowed_modules
- * @var CodeIgniter\HTTP\IncomingRequest $request
- * @var array $config
+ * @var object          $user_info
+ * @var array           $allowed_modules
+ * @var IncomingRequest $request
+ * @var array           $config
  */
 
+use CodeIgniter\HTTP\IncomingRequest;
 use Config\Services;
 
 $request = Services::request();
@@ -16,14 +17,15 @@ $request = Services::request();
 
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <base href="<?= base_url() ?>">
     <title><?= esc($config['company']) . ' | ' . lang('Common.powered_by') . ' OSPOS ' . esc(config('App')->application_version) ?></title>
     <meta name="robots" content="noindex, nofollow">
     <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
-    <?php $theme = (empty($config['theme']) ? 'flatly' : esc($config['theme'])); ?>
-    <link rel="stylesheet" href="resources/bootswatch/<?= "$theme" ?>/bootstrap.min.css">
+    <?php $theme = in_array($config['theme'] ?? '', ['', 'paper', 'readable'], true) ? 'flatly' : $config['theme']; ?>
+    <link rel="stylesheet" href="resources/bootswatch/<?= esc($theme, 'attr') ?>/bootstrap<?= currentLanguageDirection() === 'rtl' ? '.rtl' : '' ?>.min.css">
 
-    <?php if (ENVIRONMENT == 'development' || get_cookie('debug') == 'true' || $request->getGet('debug') == 'true') : ?>
+    <?php if (ENVIRONMENT === 'development' || get_cookie('debug') === 'true' || $request->getGet('debug') === 'true') : ?>
         <!-- inject:debug:css -->
         <!-- endinject -->
         <!-- inject:debug:js -->
@@ -33,7 +35,7 @@ $request = Services::request();
         <!-- endinject -->
 
         <!-- Tweaks to the UI for a particular theme should drop here  -->
-        <?php if ($config['theme'] != 'flatly' && file_exists($_SERVER['DOCUMENT_ROOT'] . '/public/css/' . esc($config['theme']) . '.css')) { ?>
+        <?php if ($config['theme'] !== 'flatly' && file_exists($_SERVER['DOCUMENT_ROOT'] . '/public/css/' . esc($config['theme']) . '.css')) { ?>
             <link rel="stylesheet" href="<?= 'css/' . esc($config['theme']) . '.css' ?>">
         <?php } ?>
         <!-- inject:prod:js -->
@@ -53,42 +55,29 @@ $request = Services::request();
 <body>
     <div class="wrapper">
         <div class="topbar">
-            <div class="container">
-                <div class="navbar-left">
-                    <div id="liveclock"><?= date($config['dateformat'] . ' ' . $config['timeformat']) ?></div>
-                </div>
-
-                <div class="navbar-right" style="margin: 0;">
-                    <?= anchor("home/changePassword/$user_info->person_id", "$user_info->first_name $user_info->last_name", ['class' => 'modal-dlg', 'data-btn-submit' => lang('Common.submit'), 'title' => lang('Employees.change_password')]) ?>
-                    <span>&nbsp;|&nbsp;</span>
+            <div class="container d-flex flex-wrap justify-content-between align-items-center gap-2">
+                <div id="liveclock"><?= date($config['dateformat'] . ' ' . $config['timeformat']) ?></div>
+                <strong><?= esc($config['company']) ?></strong>
+                <div>
+                    <?= anchor("home/changePassword/{$user_info->person_id}", "{$user_info->first_name} {$user_info->last_name}", ['class' => 'modal-dlg', 'data-btn-submit' => lang('Common.submit'), 'title' => lang('Employees.change_password')]) ?>
+                    <span class="mx-1">|</span>
                     <?= anchor('home/logout', lang('Login.logout')) ?>
-                </div>
-
-                <div class="navbar-center" style="text-align: center;">
-                    <strong><?= esc($config['company']) ?></strong>
                 </div>
             </div>
         </div>
-
-        <div class="navbar navbar-default" role="navigation">
+        <nav class="navbar navbar-expand-xl bg-primary mb-3" data-bs-theme="dark">
             <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-
-                    <a class="navbar-brand hidden-sm" href="<?= site_url() ?>">OSPOS</a>
-                </div>
-
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav navbar-right">
+                <a class="navbar-brand" href="<?= site_url() ?>">OSPOS</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#module-navigation" aria-controls="module-navigation" aria-expanded="false" aria-label="<?= esc(lang('Module.home'), 'attr') ?>">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="module-navigation">
+                    <ul class="navbar-nav ms-auto flex-wrap">
                         <?php foreach ($allowed_modules as $module): ?>
-                            <li class="<?= $module->module_id == $request->getUri()->getSegment(1) ? 'active' : '' ?>">
-                                <a href="<?= base_url($module->module_id) ?>" title="<?= lang("Module.$module->module_id") ?>" class="menu-icon">
-                                    <img src="<?= base_url("images/menubar/$module->module_id.svg") ?>" style="border: none;" alt="Module Icon"><br>
+                            <?php $isActive = $module->module_id === $request->getUri()->getSegment(1); ?>
+                            <li class="nav-item">
+                                <a class="nav-link menu-icon<?= $isActive ? ' active' : '' ?>" href="<?= base_url($module->module_id) ?>" title="<?= esc(lang('Module.' . $module->module_id), 'attr') ?>"<?= $isActive ? ' aria-current="page"' : '' ?>>
+                                    <img src="<?= base_url("images/menubar/{$module->module_id}.svg") ?>" alt="" aria-hidden="true"><br>
                                     <?= lang('Module.' . $module->module_id) ?>
                                 </a>
                             </li>
@@ -96,7 +85,6 @@ $request = Services::request();
                     </ul>
                 </div>
             </div>
-        </div>
-
-        <div class="container">
-            <div class="row">
+        </nav>
+        <main class="container">
+            <div class="ospos-content">

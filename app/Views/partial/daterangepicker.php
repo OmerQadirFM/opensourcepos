@@ -10,6 +10,10 @@
     let end_date = "<?= date('Y-m-d') ?>";
 
     $('#daterangepicker').daterangepicker({
+    opens: document.documentElement.dir === 'rtl' ? 'left' : 'right',
+    buttonClasses: 'btn btn-sm',
+    applyButtonClasses: 'btn-primary',
+    cancelButtonClasses: 'btn-secondary',
     "ranges": {
     "<?= lang('Datepicker.today') ?>": [
     "<?= date($config['dateformat'], mktime(0, 0, 0, date("m"), date("d"), date("Y"))) ?>",
@@ -119,6 +123,10 @@
     let start_date = "<?= date('Y-m-d H:i:s', mktime(0, 0, 0, date("m"), date("d"), date("Y"))) ?>";
     let end_date = "<?= date('Y-m-d H:i:s', mktime(23, 59, 59, date("m"), date("d"), date("Y"))) ?>";
     $('#daterangepicker').daterangepicker({
+    opens: document.documentElement.dir === 'rtl' ? 'left' : 'right',
+    buttonClasses: 'btn btn-sm',
+    applyButtonClasses: 'btn-primary',
+    cancelButtonClasses: 'btn-secondary',
     "ranges": {
     "<?= lang('Datepicker.today') ?>": [
     "<?= date($config['dateformat'] . ' ' . $config['dateformat'], mktime(0, 0, 0, date("m"), date("d"), date("Y"))) ?>",

@@ -5,16 +5,16 @@
  */
 ?>
 
-<?= form_open('config/saveTables/', ['id' => 'table_config_form', 'class' => 'form-horizontal']) ?>
+<?= form_open('config/saveTables/', ['id' => 'table_config_form', 'class' => 'ospos-form']) ?>
     <div id="config_wrapper">
         <fieldset id="config_info">
 
             <div id="required_fields_message"><?= lang('Common.fields_required_message') ?></div>
             <ul id="table_error_message_box" class="error_message_box"></ul>
 
-            <div class="form-group form-group-sm">
-                <?= form_label(lang('Config.dinner_table_enable'), 'dinner_table_enable', ['class' => 'control-label col-xs-3 col-sm-2']) ?>
-                <div class="col-xs-9">
+            <div class="row mb-3 ">
+                <?= form_label(lang('Config.dinner_table_enable'), 'dinner_table_enable', ['class' => 'col-form-label col-3 col-sm-2']) ?>
+                <div class="col-9">
                     <?= form_checkbox([
                         'name'    => 'dinner_table_enable',
                         'value'   => 'dinner_table_enable',
@@ -32,7 +32,7 @@
                 'name'  => 'submit_table',
                 'id'    => 'submit_table',
                 'value' => lang('Common.submit'),
-                'class' => 'btn btn-primary btn-sm pull-right'
+                'class' => 'btn btn-primary btn-sm float-end'
             ]) ?>
 
         </fieldset>
@@ -72,8 +72,8 @@
             const block = $(this).parent().clone(true);
             const new_block = block.insertAfter($(this).parent());
             const new_block_id = 'dinner_table_' + ++id;
-            $(new_block).find('label').html("<?= lang('Config.dinner_table') ?> " + ++table_count).attr('for', new_block_id).attr('class', 'control-label col-xs-3 col-sm-2 text-danger required');
-            $(new_block).find('input').attr('id', new_block_id).removeAttr('disabled').attr('name', new_block_id).attr('class', 'form-control input-sm required').val('');
+            $(new_block).find('label').html("<?= lang('Config.dinner_table') ?> " + ++table_count).attr('for', new_block_id).attr('class', 'col-form-label col-3 col-sm-2 text-danger required');
+            $(new_block).find('input').attr('id', new_block_id).removeAttr('disabled').attr('name', new_block_id).attr('class', 'form-control form-control-sm required').val('');
             hide_show_remove();
         };
 

@@ -29,9 +29,9 @@ if (isset($error)) {
 
 <div class="row">
     <div class="col-md-4">
-        <div class="panel panel-primary">
-            <div class="panel-heading">
-                <h3 class="panel-title"><span class="glyphicon glyphicon-stats">&nbsp;</span><?= lang('Reports.graphical_reports') ?></h3>
+        <div class="card border-primary">
+            <div class="card-header">
+                <h3 class="card-title"><span class="bi bi-bar-chart">&nbsp;</span><?= lang('Reports.graphical_reports') ?></h3>
             </div>
             <div class="list-group">
                 <?php foreach ($permission_ids as $permission_id) {
@@ -48,9 +48,9 @@ if (isset($error)) {
     </div>
 
     <div class="col-md-4">
-        <div class="panel panel-primary">
-            <div class="panel-heading">
-                <h3 class="panel-title"><span class="glyphicon glyphicon-list">&nbsp;</span><?= lang('Reports.summary_reports') ?></h3>
+        <div class="card border-primary">
+            <div class="card-header">
+                <h3 class="card-title"><span class="bi bi-list">&nbsp;</span><?= lang('Reports.summary_reports') ?></h3>
             </div>
             <div class="list-group">
                 <?php foreach ($permission_ids as $permission_id) {
@@ -67,9 +67,9 @@ if (isset($error)) {
     </div>
 
     <div class="col-md-4">
-        <div class="panel panel-primary">
-            <div class="panel-heading">
-                <h3 class="panel-title"><span class="glyphicon glyphicon-list-alt">&nbsp;</span><?= lang('Reports.detailed_reports') ?></h3>
+        <div class="card border-primary">
+            <div class="card-header">
+                <h3 class="card-title"><span class="bi bi-card-list">&nbsp;</span><?= lang('Reports.detailed_reports') ?></h3>
             </div>
             <div class="list-group">
                 <?php foreach ($detailed_reports as $report_name => $prefix) {
@@ -90,9 +90,9 @@ if (isset($error)) {
         </div>
 
         <?php if (in_array('reports_inventory', $permission_ids, true)) { ?>
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <h3 class="panel-title"><span class="glyphicon glyphicon-book">&nbsp;</span><?= lang('Reports.inventory_reports') ?></h3>
+            <div class="card border-primary">
+                <div class="card-header">
+                    <h3 class="card-title"><span class="bi bi-book">&nbsp;</span><?= lang('Reports.inventory_reports') ?></h3>
                 </div>
                 <div class="list-group">
                     <?php

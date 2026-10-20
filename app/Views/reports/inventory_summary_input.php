@@ -19,18 +19,18 @@ if (isset($error)) {
 }
 ?>
 
-<?= form_open('#', ['id' => 'item_form', 'enctype' => 'multipart/form-data', 'class' => 'form-horizontal']) ?>
+<?= form_open('#', ['id' => 'item_form', 'enctype' => 'multipart/form-data', 'class' => 'ospos-form']) ?>
 
-    <div class="form-group form-group-sm">
-        <?= form_label(lang('Reports.stock_location'), 'reports_stock_location_label', ['class' => 'control-label col-xs-2 text-danger required']) ?>
-        <div id="report_stock_location" class="col-xs-3">
+    <div class="row mb-3 ">
+        <?= form_label(lang('Reports.stock_location'), 'reports_stock_location_label', ['class' => 'col-form-label col-2 text-danger required']) ?>
+        <div id="report_stock_location" class="col-3">
             <?= form_dropdown('stock_location', $stock_locations, 'all', 'id="location_id" class="form-control"') ?>
         </div>
     </div>
 
-    <div class="form-group form-group-sm">
-        <?= form_label(lang('Reports.item_count'), 'reports_item_count_label', ['class' => 'control-label col-xs-2 text-danger required']) ?>
-        <div id="report_item_count" class="col-xs-3">
+    <div class="row mb-3 ">
+        <?= form_label(lang('Reports.item_count'), 'reports_item_count_label', ['class' => 'col-form-label col-2 text-danger required']) ?>
+        <div id="report_item_count" class="col-3">
             <?= form_dropdown('item_count', $item_count, 'all', 'id="item_count" class="form-control"') ?>
         </div>
     </div>

@@ -3,11 +3,13 @@
 namespace Tests\Controllers;
 
 use CodeIgniter\Database\Config;
+use CodeIgniter\Config\Services;
 use CodeIgniter\Test\CIUnitTestCase;
 use CodeIgniter\Test\DatabaseTestTrait;
 use CodeIgniter\Test\FeatureTestTrait;
 use App\Models\Employee;
 use RuntimeException;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 /**
  * Test suite for Home controller password validation
@@ -27,6 +29,41 @@ class HomeTest extends CIUnitTestCase
     protected $namespace   = null;
 
     private static bool $doneBootstrap = false;
+
+    #[DataProvider('bootstrapLocales')]
+    public function testIndex_AcceptsBootstrapFiveNavigationAndRtlThemes(string $languageCode, string $direction): void
+    {
+        $settings = $this->db->table('app_config')->whereIn('key', ['language_code', 'theme'])->get()->getResultArray();
+
+        try {
+            $this->db->table('app_config')->where('key', 'language_code')->update(['value' => $languageCode]);
+            $this->db->table('app_config')->where('key', 'theme')->update(['value' => 'flatly']);
+            Services::cache()->delete('settings');
+            $this->withSession(['person_id' => 1, 'menu_group' => 'home']);
+            $response = $this->get('/home');
+            $response->assertStatus(200);
+            $html = $response->response()->getBody();
+            $this->assertStringContainsString('<html lang="' . $languageCode . '" dir="' . $direction . '">', $html);
+            $this->assertStringContainsString('data-bs-target="#module-navigation"', $html);
+            $this->assertStringNotContainsString('navbar-default', $html);
+            $stylesheet = $direction === 'rtl' ? 'bootstrap.rtl.min.css' : 'bootstrap.min.css';
+            $this->assertStringContainsString('resources/bootswatch/flatly/' . $stylesheet, $html);
+        } finally {
+            Services::cache()->delete('settings');
+            foreach ($settings as $setting) {
+                $this->db->table('app_config')->where('key', $setting['key'])->update(['value' => $setting['value']]);
+            }
+        }
+    }
+
+    public static function bootstrapLocales(): array
+    {
+        return [
+            'English' => ['en', 'ltr'],
+            'Sorani' => ['ckb', 'rtl'],
+            'Arabic' => ['ar-EG', 'rtl'],
+        ];
+    }
 
     protected function setUp(): void
     {

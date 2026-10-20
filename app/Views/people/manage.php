@@ -34,22 +34,22 @@
 
 <div id="title_bar" class="btn-toolbar">
     <?php if ($controller_name === 'customers') { ?>
-        <button class="btn btn-info btn-sm pull-right modal-dlg" data-btn-submit="<?= lang('Common.submit') ?>" data-href="<?= "$controller_name/csvImport" ?>" title="<?= lang(ucfirst($controller_name) . '.import_items_csv') ?>">
-            <span class="glyphicon glyphicon-import">&nbsp;</span><?= lang('Common.import_csv') ?>
+        <button class="btn btn-info btn-sm float-end modal-dlg" data-btn-submit="<?= lang('Common.submit') ?>" data-href="<?= "$controller_name/csvImport" ?>" title="<?= lang(ucfirst($controller_name) . '.import_items_csv') ?>">
+            <span class="bi bi-upload">&nbsp;</span><?= lang('Common.import_csv') ?>
         </button>
     <?php } ?>
-    <button class="btn btn-info btn-sm pull-right modal-dlg" data-btn-submit="<?= lang('Common.submit') ?>" data-href="<?= "$controller_name/view" ?>" title="<?= lang(ucfirst($controller_name) . '.new') ?>">
-        <span class="glyphicon glyphicon-user">&nbsp;</span><?= lang(ucfirst($controller_name) . '.new') ?>
+    <button class="btn btn-info btn-sm float-end modal-dlg" data-btn-submit="<?= lang('Common.submit') ?>" data-href="<?= "$controller_name/view" ?>" title="<?= lang(ucfirst($controller_name) . '.new') ?>">
+        <span class="bi bi-person">&nbsp;</span><?= lang(ucfirst($controller_name) . '.new') ?>
     </button>
 </div>
 
 <div id="toolbar">
-    <div class="pull-left btn-toolbar">
-        <button id="delete" class="btn btn-default btn-sm">
-            <span class="glyphicon glyphicon-trash">&nbsp;</span><?= lang('Common.delete') ?>
+    <div class="float-start btn-toolbar">
+        <button id="delete" class="btn btn-secondary btn-sm">
+            <span class="bi bi-trash">&nbsp;</span><?= lang('Common.delete') ?>
         </button>
-        <button id="email" class="btn btn-default btn-sm">
-            <span class="glyphicon glyphicon-envelope">&nbsp;</span><?= lang('Common.email') ?>
+        <button id="email" class="btn btn-secondary btn-sm">
+            <span class="bi bi-envelope">&nbsp;</span><?= lang('Common.email') ?>
         </button>
     </div>
 </div>

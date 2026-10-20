@@ -56,7 +56,7 @@
         <?php foreach ($cart as $line => $item) { ?>
             <tr>
                 <td><?= esc(ucfirst($item['name'] . ' ' . $item['attribute_values'])) ?></td>
-                <td><?= to_quantity_decimals($item['quantity']) ?></td>
+                <td><bdi dir="ltr"><?= to_quantity_decimals($item['quantity']) ?></bdi></td>
                 <td class="total-value"><?= to_currency($item[($config['receipt_show_total_discount'] ? 'total' : 'discounted_total')]) ?></td>
             </tr>
             <tr>
@@ -74,7 +74,7 @@
                     <?php } elseif ($item['discount_type'] == PERCENT) { ?>
                         <td colspan="2" class="discount"><?= to_decimals($item['discount']) . " " . lang('Sales.discount_included') ?></td>
                     <?php } ?>
-                    <td class="total-value"><?= to_currency($item['discounted_total']) ?></td>
+                    <td class="total-value"><bdi dir="ltr"><?= to_currency($item['discounted_total']) ?></bdi></td>
                 </tr>
         <?php
             }
@@ -83,24 +83,24 @@
 
         <?php if ($config['receipt_show_total_discount'] && $discount > 0) { ?>
             <tr>
-                <td colspan="2" style="text-align: right; border-top: 2px solid #000000;"><?= lang('Sales.sub_total') ?></td>
-                <td style="text-align: right; border-top: 2px solid #000000;"><?= to_currency($subtotal) ?></td>
+                <td colspan="2" style="text-align: end; border-top: 2px solid #000000;"><?= lang('Sales.sub_total') ?></td>
+                <td style="text-align: end; border-top: 2px solid #000000;"><bdi dir="ltr"><?= to_currency($subtotal) ?></bdi></td>
             </tr>
             <tr>
                 <td colspan="2" class="total-value"><?= lang('Sales.discount') ?>:</td>
-                <td class="total-value"><?= to_currency($discount * -1) ?></td>
+                <td class="total-value"><bdi dir="ltr"><?= to_currency($discount * -1) ?></bdi></td>
             </tr>
         <?php } ?>
 
         <?php if ($config['receipt_show_taxes']) { ?>
             <tr>
-                <td colspan="2" style="text-align: right; border-top: 2px solid #000000;"><?= lang('Sales.sub_total') ?></td>
-                <td style="text-align: right; border-top: 2px solid #000000;"><?= to_currency($subtotal) ?></td>
+                <td colspan="2" style="text-align: end; border-top: 2px solid #000000;"><?= lang('Sales.sub_total') ?></td>
+                <td style="text-align: end; border-top: 2px solid #000000;"><bdi dir="ltr"><?= to_currency($subtotal) ?></bdi></td>
             </tr>
             <?php foreach ($taxes as $tax_group_index => $tax) { ?>
                 <tr>
                     <td colspan="2" class="total-value"><?= (float)$tax['tax_rate'] . '% ' . esc($tax['tax_group']) ?>:</td>
-                    <td class="total-value"><?= to_currency_tax($tax['sale_tax_amount']) ?></td>
+                    <td class="total-value"><bdi dir="ltr"><?= to_currency_tax($tax['sale_tax_amount']) ?></bdi></td>
                 </tr>
         <?php
             }
@@ -112,8 +112,8 @@
 
         <?php $border = (!$config['receipt_show_taxes'] && !($config['receipt_show_total_discount'] && $discount > 0)); ?>
         <tr>
-            <td colspan="2" style="text-align: right;<?= $border ? ' border-top: 2px solid black;' : '' ?>"><?= lang('Sales.total') ?></td>
-            <td style="text-align: right;<?= $border ? ' border-top: 2px solid black;' : '' ?>"><?= to_currency($total) ?></td>
+            <td colspan="2" style="text-align: end;<?= $border ? ' border-top: 2px solid black;' : '' ?>"><?= lang('Sales.total') ?></td>
+            <td style="text-align: end;<?= $border ? ' border-top: 2px solid black;' : '' ?>"><bdi dir="ltr"><?= to_currency($total) ?></bdi></td>
         </tr>
 
 
@@ -126,20 +126,20 @@
             $show_giftcard_remainder |= $splitpayment[0] == lang('Sales.giftcard');
         ?>
             <tr>
-                <td colspan="2" style="text-align: right;"><?= $splitpayment[0] ?> </td>
-                <td class="total-value"><?= to_currency($payment['payment_amount'] * -1) ?></td>
+                <td colspan="2" style="text-align: end;"><?= $splitpayment[0] ?> </td>
+                <td class="total-value"><bdi dir="ltr"><?= to_currency($payment['payment_amount'] * -1) ?></bdi></td>
             </tr>
         <?php } ?>
 
         <?php if (isset($cur_giftcard_value) && $show_giftcard_remainder) { ?>
             <tr>
-                <td colspan="2" style="text-align: right;"><?= lang('Sales.giftcard_balance') ?></td>
-                <td class="total-value"><?= to_currency($cur_giftcard_value) ?></td>
+                <td colspan="2" style="text-align: end;"><?= lang('Sales.giftcard_balance') ?></td>
+                <td class="total-value"><bdi dir="ltr"><?= to_currency($cur_giftcard_value) ?></bdi></td>
             </tr>
         <?php } ?>
         <tr>
-            <td colspan="2" style="text-align: right;"> <?= lang($amount_change >= 0 ? ($only_sale_check ? 'Sales.check_balance' : 'Sales.change_due') : 'Sales.amount_due') ?> </td>
-            <td class="total-value"><?= to_currency($amount_change) ?></td>
+            <td colspan="2" style="text-align: end;"> <?= lang($amount_change >= 0 ? ($only_sale_check ? 'Sales.check_balance' : 'Sales.change_due') : 'Sales.amount_due') ?> </td>
+            <td class="total-value"><bdi dir="ltr"><?= to_currency($amount_change) ?></bdi></td>
         </tr>
     </table>
 

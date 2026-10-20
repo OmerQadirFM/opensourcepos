@@ -32,7 +32,7 @@ $request = Services::request();
         ? 'flatly'
         : $config['theme']);
     ?>
-    <link rel="stylesheet" href="resources/bootswatch5/<?= esc($theme, 'attr') ?>/bootstrap<?= currentLanguageDirection() === 'rtl' ? '.rtl' : '' ?>.min.css">
+    <link rel="stylesheet" href="resources/bootswatch/<?= esc($theme, 'attr') ?>/bootstrap<?= currentLanguageDirection() === 'rtl' ? '.rtl' : '' ?>.min.css">
     <link rel="stylesheet" href="css/login.css">
     <meta name="theme-color" content="#2c3e50">
 </head>

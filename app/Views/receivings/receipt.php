@@ -26,11 +26,11 @@ if (isset($error_message)) {
 
 echo view('partial/print_receipt', ['print_after_sale', $print_after_sale, 'selected_printer' => 'receipt_printer']) ?>
 
-<div class="print_hide" id="control_buttons" style="text-align: right;">
+<div class="print_hide" id="control_buttons" style="text-align: end;">
     <a href="javascript:printdoc();">
-        <div class="btn btn-info btn-sm" id="show_print_button"><?= '<span class="glyphicon glyphicon-print">&nbsp;</span>' . lang('Common.print') ?></div>
+        <div class="btn btn-info btn-sm" id="show_print_button"><?= '<span class="bi bi-printer">&nbsp;</span>' . lang('Common.print') ?></div>
     </a>
-    <?= anchor("receivings", '<span class="glyphicon glyphicon-save">&nbsp;</span>' . lang('Receivings.register'), ['class' => 'btn btn-info btn-sm', 'id' => 'show_sales_button']) ?>
+    <?= anchor("receivings", '<span class="bi bi-download">&nbsp;</span>' . lang('Receivings.register'), ['class' => 'btn btn-info btn-sm', 'id' => 'show_sales_button']) ?>
 </div>
 
 <div id="receipt_wrapper">
@@ -67,15 +67,15 @@ echo view('partial/print_receipt', ['print_after_sale', $print_after_sale, 'sele
             <th style="width: 40%;"><?= lang('Items.item') ?></th>
             <th style="width: 20%;"><?= lang('Common.price') ?></th>
             <th style="width: 20%;"><?= lang('Sales.quantity') ?></th>
-            <th style="width: 15%; text-align: right;"><?= lang('Sales.total') ?></th>
+            <th style="width: 15%; text-align: end;"><?= lang('Sales.total') ?></th>
         </tr>
 
         <?php foreach (array_reverse($cart, true) as $line => $item) { ?>
             <tr>
                 <td><?= esc($item['name'] . ' ' . $item['attribute_values']) ?></td>
-                <td><?= to_currency($item['price']) ?></td>
+                <td><bdi dir="ltr"><?= to_currency($item['price']) ?></bdi></td>
                 <td><?= to_quantity_decimals($item['quantity']) . ' ' . ($show_stock_locations ? ' [' . esc($item['stock_name']) . ']' : '') ?>&nbsp;&nbsp;&nbsp;x <?= $item['receiving_quantity'] != 0 ? to_quantity_decimals($item['receiving_quantity']) : 1 ?></td>
-                <td><div class="total-value"><?= to_currency($item['total']) ?></div></td>
+                <td><div class="total-value"><bdi dir="ltr"><?= to_currency($item['total']) ?></bdi></div></td>
             </tr>
             <tr>
                 <td><?= esc($item['serialnumber']) ?></td>
@@ -91,14 +91,14 @@ echo view('partial/print_receipt', ['print_after_sale', $print_after_sale, 'sele
             <?php } ?>
         <?php } ?>
         <tr>
-            <td colspan="3" style="text-align: right; border-top: 2px solid #000000;"><?= lang('Sales.total') ?></td>
+            <td colspan="3" style="text-align: end; border-top: 2px solid #000000;"><?= lang('Sales.total') ?></td>
             <td style="border-top: 2px solid #000000;">
-                <div class="total-value"><?= to_currency($total) ?></div>
+                <div class="total-value"><bdi dir="ltr"><?= to_currency($total) ?></bdi></div>
             </td>
         </tr>
         <?php if ($mode != 'requisition') { ?>
             <tr>
-                <td colspan="3" style="text-align: right;"><?= lang('Sales.payment') ?></td>
+                <td colspan="3" style="text-align: end;"><?= lang('Sales.payment') ?></td>
                 <td>
                     <div class="total-value"><?= esc($payment_type) ?></div>
                 </td>
@@ -106,14 +106,14 @@ echo view('partial/print_receipt', ['print_after_sale', $print_after_sale, 'sele
 
             <?php if (isset($amount_change)) { ?>
                 <tr>
-                    <td colspan="3" style="text-align: right;"><?= lang('Sales.amount_tendered') ?></td>
+                    <td colspan="3" style="text-align: end;"><?= lang('Sales.amount_tendered') ?></td>
                     <td>
-                        <div class="total-value"><?= to_currency($amount_tendered) ?></div>
+                        <div class="total-value"><bdi dir="ltr"><?= to_currency($amount_tendered) ?></bdi></div>
                     </td>
                 </tr>
 
                 <tr>
-                    <td colspan="3" style="text-align: right;"><?= lang('Sales.change_due') ?></td>
+                    <td colspan="3" style="text-align: end;"><?= lang('Sales.change_due') ?></td>
                     <td>
                         <div class="total-value"><?= $amount_change ?></div>
                     </td>

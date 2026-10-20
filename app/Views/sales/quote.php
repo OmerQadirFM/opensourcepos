@@ -51,22 +51,22 @@ if (isset($error_message)) {
 
 <?= view('partial/print_receipt', ['print_after_sale' => $print_after_sale, 'selected_printer' => 'invoice_printer']) ?>
 
-<div class="print_hide" id="control_buttons" style="text-align: right;">
+<div class="print_hide" id="control_buttons" style="text-align: end;">
     <a href="javascript:printdoc();">
-        <div class="btn btn-info btn-sm" id="show_print_button"><?= '<span class="glyphicon glyphicon-print">&nbsp;</span>' . lang('Common.print') ?></div>
+        <div class="btn btn-info btn-sm" id="show_print_button"><?= '<span class="bi bi-printer">&nbsp;</span>' . lang('Common.print') ?></div>
     </a>
     <?php
     /* This line will allow to print and go back to sales automatically.
-     * echo anchor('sales', '<span class="glyphicon glyphicon-print">&nbsp;</span>' . lang('Common.print'), ['class' => 'btn btn-info btn-sm', 'id' => 'show_print_button', 'onclick' => 'window.print();'));
+     * echo anchor('sales', '<span class="bi bi-printer">&nbsp;</span>' . lang('Common.print'), ['class' => 'btn btn-info btn-sm', 'id' => 'show_print_button', 'onclick' => 'window.print();'));
      */
     ?>
     <?php if (isset($customer_email) && !empty($customer_email)): ?>
         <a href="javascript:void(0);">
-            <div class="btn btn-info btn-sm" id="show_email_button"><?= '<span class="glyphicon glyphicon-envelope">&nbsp;</span>' . lang('Sales.send_quote') ?></div>
+            <div class="btn btn-info btn-sm" id="show_email_button"><?= '<span class="bi bi-envelope">&nbsp;</span>' . lang('Sales.send_quote') ?></div>
         </a>
     <?php endif; ?>
-    <?= anchor('sales', '<span class="glyphicon glyphicon-shopping-cart">&nbsp;</span>' . lang('Sales.register'), ['class' => 'btn btn-info btn-sm', 'id' => 'show_sales_button']) ?>
-    <?= anchor('sales/discardsuspendedsale', '<span class="glyphicon glyphicon-remove">&nbsp;</span>' . lang('Sales.discard'), ['class' => 'btn btn-danger btn-sm', 'id' => 'discard_quote_button']) ?>
+    <?= anchor('sales', '<span class="bi bi-cart">&nbsp;</span>' . lang('Sales.register'), ['class' => 'btn btn-info btn-sm', 'id' => 'show_sales_button']) ?>
+    <?= anchor('sales/discardsuspendedsale', '<span class="bi bi-x-lg">&nbsp;</span>' . lang('Sales.discard'), ['class' => 'btn btn-danger btn-sm', 'id' => 'discard_quote_button']) ?>
 </div>
 
 <div id="page-wrap">
@@ -102,7 +102,7 @@ if (isset($error_message)) {
             </tr>
             <tr>
                 <td class="meta-head"><?= lang('Sales.invoice_total') ?></td>
-                <td><?= to_currency($total) ?></td>
+                <td><bdi dir="ltr"><?= to_currency($total) ?></bdi></td>
             </tr>
         </table>
     </div>
@@ -131,13 +131,13 @@ if (isset($error_message)) {
                 <tr class="item-row">
                     <td><?= esc($item['item_number']) ?></td>
                     <td class="item-name"><?= esc($item['name']) ?></td>
-                    <td style="text-align: center;"><?= to_quantity_decimals($item['quantity']) ?></td>
-                    <td><?= to_currency($item['price']) ?></td>
+                    <td style="text-align: center;"><bdi dir="ltr"><?= to_quantity_decimals($item['quantity']) ?></bdi></td>
+                    <td><bdi dir="ltr"><?= to_currency($item['price']) ?></bdi></td>
                     <td style="text-align: center;"><?= ($item['discount_type'] == FIXED) ? to_currency($item['discount']) : to_decimals($item['discount']) . '%' ?></td>
                     <?php if ($discount > 0): ?>
-                        <td style="text-align: center;"><?= to_currency($item['discounted_total'] / $item['quantity']) ?></td>
+                        <td style="text-align: center;"><bdi dir="ltr"><?= to_currency($item['discounted_total'] / $item['quantity']) ?></bdi></td>
                     <?php endif; ?>
-                    <td style="border-right: solid 1px; text-align: right;"><?= to_currency($item['discounted_total']) ?></td>
+                    <td style="border-inline-end: solid 1px; text-align: end;"><bdi dir="ltr"><?= to_currency($item['discounted_total']) ?></bdi></td>
                 </tr>
 
                 <?php if ($item['is_serialized']) { ?>
@@ -158,21 +158,21 @@ if (isset($error_message)) {
         <tr>
             <td colspan="<?= $quote_columns - 3 ?>" class="blank-bottom"> </td>
             <td colspan="2" class="total-line"><?= lang('Sales.sub_total') ?></td>
-            <td class="total-value" id="subtotal"><?= to_currency($subtotal) ?></td>
+            <td class="total-value" id="subtotal"><bdi dir="ltr"><?= to_currency($subtotal) ?></bdi></td>
         </tr>
 
         <?php foreach ($taxes as $tax_group_index => $tax) { ?>
             <tr>
                 <td colspan="<?= $quote_columns - 3 ?>" class="blank"> </td>
                 <td colspan="2" class="total-line"><?= (float)$tax['tax_rate'] . '% ' . esc($tax['tax_group']) ?></td>
-                <td class="total-value" id="taxes"><?= to_currency_tax($tax['sale_tax_amount']) ?></td>
+                <td class="total-value" id="taxes"><bdi dir="ltr"><?= to_currency_tax($tax['sale_tax_amount']) ?></bdi></td>
             </tr>
         <?php } ?>
 
         <tr>
             <td colspan="<?= $quote_columns - 3 ?>" class="blank"> </td>
             <td colspan="2" class="total-line"><?= lang('Sales.total') ?></td>
-            <td class="total-value" id="total"><?= to_currency($total) ?></td>
+            <td class="total-value" id="total"><bdi dir="ltr"><?= to_currency($total) ?></bdi></td>
         </tr>
 
         <?php
@@ -187,7 +187,7 @@ if (isset($error_message)) {
             <tr>
                 <td colspan="<?= $quote_columns - 3 ?>" class="blank"> </td>
                 <td colspan="2" class="total-line"><?= $splitpayment[0] ?></td>
-                <td class="total-value" id="paid"><?= to_currency($payment['payment_amount']) ?></td>
+                <td class="total-value" id="paid"><bdi dir="ltr"><?= to_currency($payment['payment_amount']) ?></bdi></td>
             </tr>
         <?php } ?>
     </table>

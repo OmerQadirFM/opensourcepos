@@ -32,3 +32,7 @@ The effective employee/store language determines the document direction and the 
 Application spacing uses logical CSS properties. Register panels stack below the desktop breakpoint, and wide item tables scroll within their panel. Visible monetary outputs are isolated where needed so signed amounts remain readable in RTL. Barcodes keep LTR direction.
 
 This migration does not complete missing language translations or change the PDF engine. Browser receipts and generated PDFs need separate visual checks; thermal printer behavior depends on the device and driver.
+
+## Arabic and Sorani typography
+
+Arabic (`ar`) and Sorani Kurdish (`ckb`) use locally bundled Vazirmatn 33.003 at a 16px base size, with regular, semibold, and bold weights. The shared page and login load `public/css/rtl-fonts.css`; browser receipts inherit the same font. Font files and their SIL Open Font License are in `public/fonts/vazirmatn/`. No external font service is required. PDF generation retains its separate font configuration.

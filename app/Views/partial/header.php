@@ -50,6 +50,7 @@ $request = Services::request();
             overflow: auto;
         }
     </style>
+    <link rel="stylesheet" href="css/rtl-fonts.css">
 </head>
 
 <body>

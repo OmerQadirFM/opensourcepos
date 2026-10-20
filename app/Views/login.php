@@ -35,6 +35,7 @@ $request = Services::request();
     <link rel="stylesheet" href="resources/bootswatch/<?= esc($theme, 'attr') ?>/bootstrap<?= currentLanguageDirection() === 'rtl' ? '.rtl' : '' ?>.min.css">
     <link rel="stylesheet" href="css/login.css">
     <meta name="theme-color" content="#2c3e50">
+    <link rel="stylesheet" href="css/rtl-fonts.css">
 </head>
 
 <body class="bg-secondary-subtle d-flex flex-column">

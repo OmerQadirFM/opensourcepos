@@ -1,0 +1,42 @@
+@font-face {
+    font-family: 'Vazirmatn';
+    src: url('../fonts/vazirmatn/Vazirmatn-Regular.woff2') format('woff2');
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Vazirmatn';
+    src: url('../fonts/vazirmatn/Vazirmatn-SemiBold.woff2') format('woff2');
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Vazirmatn';
+    src: url('../fonts/vazirmatn/Vazirmatn-Bold.woff2') format('woff2');
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+}
+
+html:lang(ar), html:lang(ckb) {
+    --bs-font-sans-serif: 'Vazirmatn', sans-serif;
+    --bs-body-font-family: 'Vazirmatn', sans-serif;
+    font-size: 16px;
+}
+
+html:lang(ar) body, html:lang(ckb) body {
+    font-family: 'Vazirmatn', sans-serif;
+    line-height: 1.6;
+}
+
+:is(html:lang(ar), html:lang(ckb)) :is(input, select, textarea, button, .btn, .tooltip, .popover, .ui-widget, .ts-control, .ts-dropdown) {
+    font-family: 'Vazirmatn', sans-serif;
+}
+
+:is(html:lang(ar), html:lang(ckb)) :is(.btn, h1, h2, h3, h4, h5, h6) {
+    font-weight: 600;
+}

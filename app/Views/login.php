@@ -16,7 +16,7 @@ $request = Services::request();
 ?>
 
 <!doctype html>
-<html lang="<?= current_language_code() ?>">
+<html lang="<?= esc(current_language_code(), 'attr') ?>" dir="<?= currentLanguageDirection() ?>">
 
 <head>
     <meta charset="utf-8">
@@ -32,7 +32,7 @@ $request = Services::request();
         ? 'flatly'
         : $config['theme']);
     ?>
-    <link rel="stylesheet" href="resources/bootswatch5/<?= esc($theme, 'attr') ?>/bootstrap.min.css">
+    <link rel="stylesheet" href="resources/bootswatch5/<?= esc($theme, 'attr') ?>/bootstrap<?= currentLanguageDirection() === 'rtl' ? '.rtl' : '' ?>.min.css">
     <link rel="stylesheet" href="css/login.css">
     <meta name="theme-color" content="#2c3e50">
 </head>

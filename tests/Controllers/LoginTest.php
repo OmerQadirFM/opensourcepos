@@ -6,6 +6,7 @@ use CodeIgniter\Config\Services;
 use CodeIgniter\Test\CIUnitTestCase;
 use CodeIgniter\Test\DatabaseTestTrait;
 use CodeIgniter\Test\FeatureTestTrait;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 /**
  * Test suite for the Login controller, including the CI Throttler
@@ -22,6 +23,40 @@ class LoginTest extends CIUnitTestCase
     protected $namespace   = null;
 
     private array $usedKeys = [];
+
+    #[DataProvider('localeDirections')]
+    public function testIndex_AcceptsLocaleDirectionAndStylesheet(string $languageCode, string $direction, string $stylesheet): void
+    {
+        $settings = $this->db->table('app_config')
+            ->whereIn('key', ['language_code', 'theme'])
+            ->get()->getResultArray();
+
+        try {
+            $this->db->table('app_config')->where('key', 'language_code')->update(['value' => $languageCode]);
+            $this->db->table('app_config')->where('key', 'theme')->update(['value' => 'flatly']);
+
+            $response = $this->get('/login');
+            $response->assertStatus(200);
+
+            $html = $response->response()->getBody();
+            $this->assertStringContainsString('<html lang="' . $languageCode . '" dir="' . $direction . '">', $html);
+            $this->assertStringContainsString('resources/bootswatch5/flatly/' . $stylesheet, $html);
+        } finally {
+            foreach ($settings as $setting) {
+                $this->db->table('app_config')->where('key', $setting['key'])->update(['value' => $setting['value']]);
+            }
+        }
+    }
+
+    public static function localeDirections(): iterable
+    {
+        return [
+            'English'        => ['en', 'ltr', 'bootstrap.min.css'],
+            'Sorani'         => ['ckb', 'rtl', 'bootstrap.rtl.min.css'],
+            'Arabic Egypt'   => ['ar-EG', 'rtl', 'bootstrap.rtl.min.css'],
+            'Arabic Lebanon' => ['ar-LB', 'rtl', 'bootstrap.rtl.min.css'],
+        ];
+    }
 
     protected function setUp(): void
     {

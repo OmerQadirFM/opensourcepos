@@ -81,7 +81,7 @@ footer a:not(:hover) {
     }
 
     .box-logo {
-        border-right: none !important;
+        border-inline-end: none !important;
     }
 
     .logo {

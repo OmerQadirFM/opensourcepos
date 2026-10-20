@@ -20,6 +20,7 @@
 ?>
 
 <!doctype html>
+<html lang="<?= esc(current_language_code(), 'attr') ?>" dir="<?= currentLanguageDirection() ?>">
     <head>
         <meta charset="utf-8">
         <title><?= lang('Sales.email_receipt') ?></title>

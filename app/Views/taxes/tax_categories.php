@@ -4,7 +4,7 @@
  */
 ?>
 
-<?= form_open('taxes/save_tax_categories/', ['id' => 'tax_categories_form', 'class' => 'form-horizontal']) ?>
+<?= form_open('taxes/save_tax_categories/', ['id' => 'tax_categories_form', 'class' => 'ospos-form']) ?>
     <div id="config_wrapper">
         <fieldset id="config_info">
 
@@ -19,7 +19,7 @@
                 'name'  => 'submit_tax_categories',
                 'id'    => 'submit_tax_categories',
                 'value' => lang('Common.submit'),
-                'class' => 'btn btn-primary btn-sm pull-right'
+                'class' => 'btn btn-primary btn-sm float-end'
             ]) ?>
 
         </fieldset>
@@ -52,9 +52,9 @@
             ++tax_categories_count;
             const new_tax_category_id = 'tax_category_' + tax_categories_count;
 
-            $(new_block).find('label').html("<?= lang('Taxes.tax_category') ?> " + tax_categories_count).attr('for', new_tax_category_id).attr('class', 'control-label col-xs-2');
-            $(new_block).find("input[name='tax_category[]']").attr('id', new_tax_category_id).removeAttr('disabled').attr('class', 'form-control input-sm required').val('');
-            $(new_block).find("input[name='tax_group_sequence[]']").removeAttr('disabled').attr('class', 'form-control input-sm').val('');
+            $(new_block).find('label').html("<?= lang('Taxes.tax_category') ?> " + tax_categories_count).attr('for', new_tax_category_id).attr('class', 'col-form-label col-2');
+            $(new_block).find("input[name='tax_category[]']").attr('id', new_tax_category_id).removeAttr('disabled').attr('class', 'form-control form-control-sm required').val('');
+            $(new_block).find("input[name='tax_group_sequence[]']").removeAttr('disabled').attr('class', 'form-control form-control-sm').val('');
             $(new_block).find("input[name='tax_category_id[]']").val('-1');
             hide_show_remove_tax_category();
         };

@@ -7,7 +7,7 @@
 
 .error_message_box {
     margin-bottom: 7px;
-    margin-left: 20px;
+    margin-inline-start: 20px;
     color: red;
     font-weight: bold;
 }
@@ -37,7 +37,7 @@
 }
 
 #permission_list ul li {
-    padding-left: 20px;
+    padding-inline-start: 20px;
     padding-bottom: 0px;
     list-style: none;
 }

@@ -6,12 +6,16 @@ use CodeIgniter\Config\Services;
 use CodeIgniter\Test\CIUnitTestCase;
 use CodeIgniter\Test\DatabaseTestTrait;
 use CodeIgniter\Test\FeatureTestTrait;
+use CodeIgniter\Test\TestResponse;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 /**
  * Test suite for the Login controller, including the CI Throttler
  * mitigation for brute-force/credential-stuffing.
+ *
+ * @internal
  */
-class LoginTest extends CIUnitTestCase
+final class LoginTest extends CIUnitTestCase
 {
     use DatabaseTestTrait;
     use FeatureTestTrait;
@@ -19,9 +23,47 @@ class LoginTest extends CIUnitTestCase
     protected $migrate     = true;
     protected $migrateOnce = true;
     protected $refresh     = false;
-    protected $namespace   = null;
-
+    protected $namespace;
     private array $usedKeys = [];
+
+    #[DataProvider('provideIndex_AcceptsLocaleDirectionAndStylesheet')]
+    public function testIndexAcceptsLocaleDirectionAndStylesheet(string $languageCode, string $direction, string $stylesheet, string $theme = 'flatly'): void
+    {
+        $settings = $this->db->table('app_config')
+            ->whereIn('key', ['language_code', 'theme'])
+            ->get()->getResultArray();
+
+        try {
+            $this->db->table('app_config')->where('key', 'language_code')->update(['value' => $languageCode]);
+            $this->db->table('app_config')->where('key', 'theme')->update(['value' => $theme]);
+
+            Services::cache()->delete('settings');
+            $response = $this->get('/login');
+            $response->assertStatus(200);
+
+            $html = $response->response()->getBody();
+            $this->assertStringContainsString('<html lang="' . $languageCode . '" dir="' . $direction . '">', $html);
+            $this->assertStringContainsString('resources/bootswatch/flatly/' . $stylesheet, $html);
+        } finally {
+            Services::cache()->delete('settings');
+
+            foreach ($settings as $setting) {
+                $this->db->table('app_config')->where('key', $setting['key'])->update(['value' => $setting['value']]);
+            }
+        }
+    }
+
+    public static function provideIndex_AcceptsLocaleDirectionAndStylesheet(): iterable
+    {
+        return [
+            'English'               => ['en', 'ltr', 'bootstrap.min.css'],
+            'Sorani'                => ['ckb', 'rtl', 'bootstrap.rtl.min.css'],
+            'Arabic Egypt'          => ['ar-EG', 'rtl', 'bootstrap.rtl.min.css'],
+            'Arabic Lebanon'        => ['ar-LB', 'rtl', 'bootstrap.rtl.min.css'],
+            'Legacy paper theme'    => ['en', 'ltr', 'bootstrap.min.css', 'paper'],
+            'Legacy readable theme' => ['ar-EG', 'rtl', 'bootstrap.rtl.min.css', 'readable'],
+        ];
+    }
 
     protected function setUp(): void
     {
@@ -68,7 +110,7 @@ class LoginTest extends CIUnitTestCase
      * (throttling itself is verified independently and runs before this
      * branch, so it's unaffected).
      */
-    private function skipIfMigrationRequired(\CodeIgniter\Test\TestResponse $response): void
+    private function skipIfMigrationRequired(TestResponse $response): void
     {
         $redirectUrl = $response->getRedirectUrl();
 

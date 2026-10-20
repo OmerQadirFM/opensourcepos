@@ -3,7 +3,7 @@
     top: 100%;
     left: 0;
     z-index: 1050;
-    float: left;
+    float: inline-start;
     display: none;
     min-width: 160px;
     _width: 160px;

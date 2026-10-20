@@ -8,13 +8,13 @@ use Config\OSPOS;
 
 ?>
 
-<form id="config_wrapper" class="form-horizontal">
+<form id="config_wrapper" class="ospos-form">
     <p><?= lang('Config.server_notice') ?></p>
 
     <div id="issuetemplate">
-        <div class="form-group form-group-sm">
-            <label class="control-label col-xs-3 col-sm-2">General Info</label>
-            <div class="text-left col-xs-9 col-sm-10">
+        <div class="row mb-3 ">
+            <label class="col-form-label col-3 col-sm-2">General Info</label>
+            <div class="text-start col-9 col-sm-10">
                 <?= lang('Config.ospos_info') . ':' ?>
                 <?= esc(config('App')->application_version) ?> - <?= esc(substr(config(OSPOS::class)->commit_sha1, 0, 6)) ?><br>
                 Language Code: <?= current_language_code() ?><br><br>
@@ -33,9 +33,9 @@ use Config\OSPOS;
             </div>
         </div>
 
-        <div class="form-group form-group-sm">
-            <label class="control-label col-xs-3 col-sm-2">User Setup</label>
-            <div class="text-left col-xs-9 col-sm-10">
+        <div class="row mb-3 ">
+            <label class="col-form-label col-3 col-sm-2">User Setup</label>
+            <div class="text-start col-9 col-sm-10">
                 Browser:
                 <?php
                 /**
@@ -76,9 +76,9 @@ use Config\OSPOS;
             </div>
         </div>
 
-        <div class="form-group form-group-sm">
-            <label class="control-label col-xs-3 col-sm-2">Permissions</label>
-            <div class="text-left col-xs-9 col-sm-10">
+        <div class="row mb-3 ">
+            <label class="col-form-label col-3 col-sm-2">Permissions</label>
+            <div class="text-start col-9 col-sm-10">
                 &#187; <code>[writable/logs]</code>
                 <?php $logs = WRITEPATH . 'logs/';
                 $uploads = FCPATH. 'uploads/';
@@ -190,7 +190,7 @@ use Config\OSPOS;
 </form>
 
 <div class="row">
-    <div class="col-xs-12 text-center">
+    <div class="col-12 text-center">
         <br>
         <a class="copy" role="button" data-clipboard-action="copy" data-clipboard-target="#issuetemplate"><?= lang('Config.system_info_copy') ?></a> | <a href="https://github.com/opensourcepos/opensourcepos/issues/new?template=bug+report.yml" target="_blank"> <?= lang('Config.report_an_issue') ?></a>
         <script type="text/javascript">

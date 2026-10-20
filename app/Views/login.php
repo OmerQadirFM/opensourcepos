@@ -16,7 +16,7 @@ $request = Services::request();
 ?>
 
 <!doctype html>
-<html lang="<?= current_language_code() ?>">
+<html lang="<?= esc(current_language_code(), 'attr') ?>" dir="<?= currentLanguageDirection() ?>">
 
 <head>
     <meta charset="utf-8">
@@ -32,9 +32,10 @@ $request = Services::request();
         ? 'flatly'
         : $config['theme']);
     ?>
-    <link rel="stylesheet" href="resources/bootswatch5/<?= esc($theme, 'attr') ?>/bootstrap.min.css">
+    <link rel="stylesheet" href="resources/bootswatch/<?= esc($theme, 'attr') ?>/bootstrap<?= currentLanguageDirection() === 'rtl' ? '.rtl' : '' ?>.min.css">
     <link rel="stylesheet" href="css/login.css">
     <meta name="theme-color" content="#2c3e50">
+    <link rel="stylesheet" href="css/rtl-fonts.css">
 </head>
 
 <body class="bg-secondary-subtle d-flex flex-column">
@@ -171,9 +172,11 @@ $request = Services::request();
 
     <?php if (ENVIRONMENT == 'development' || get_cookie('debug') == 'true' || $request->getGet('debug') == 'true') : ?>
         <!-- inject:login:debug:js -->
+        <script src="resources/js/jquery-12e87d2f3a.js"></script>
         <!-- endinject -->
     <?php else : ?>
         <!-- inject:login:prod:js -->
+        <script src="resources/jquery-2c872dbe60.min.js"></script>
         <!-- endinject -->
     <?php endif; ?>
     <script>

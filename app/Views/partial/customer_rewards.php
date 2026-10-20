@@ -14,33 +14,33 @@ foreach ($customer_rewards as $reward_key => $reward_category) {
     ++$i;
 ?>
 
-    <div class="form-group form-group-sm" style="<?= $reward_category['deleted'] ? 'display: none;' : 'display: block;' ?>">
-        <?= form_label(lang('Config.customer_reward') . " $i", "customer_reward_$i", ['class' => 'control-label col-xs-3 col-sm-2 text-danger required']) ?>
-        <div class="col-xs-4 col-md-3">
+    <div class="row mb-3 " style="<?= $reward_category['deleted'] ? 'display: none;' : 'display: block;' ?>">
+        <?= form_label(lang('Config.customer_reward') . " $i", "customer_reward_$i", ['class' => 'col-form-label col-3 col-sm-2 text-danger required']) ?>
+        <div class="col-4 col-md-3">
             <?php $form_data = [
                 'name'  => 'customer_reward_' . $customer_reward_id,
                 'id'    => 'customer_reward_' . $customer_reward_id,
-                'class' => 'customer_reward valid_chars form-control input-sm required',
+                'class' => 'customer_reward valid_chars form-control form-control-sm required',
                 'value' => $customer_reward_name
             ];
             $reward_category['deleted'] && $form_data['disabled'] = 'disabled';
             echo form_input($form_data);
             ?>
         </div>
-        <div class="col-xs-3 col-md-2">
+        <div class="col-3 col-md-2">
             <?php $form_data = [
                 'name'  => 'reward_points_' . $customer_reward_id,
                 'id'    => 'reward_points_' . $customer_reward_id,
-                'class' => 'customer_reward valid_chars form-control input-sm required',
+                'class' => 'customer_reward valid_chars form-control form-control-sm required',
                 'value' => $customer_points_percent
             ];
             $reward_category['deleted'] && $form_data['disabled'] = 'disabled';
             echo form_input($form_data);
             ?>
         </div>
-        <span class="add_customer_reward glyphicon glyphicon-plus" style="padding-top: 0.5em;"></span>
+        <span class="add_customer_reward bi bi-plus-lg" style="padding-top: 0.5em;"></span>
         <span>&nbsp;&nbsp;</span>
-        <span class="remove_customer_reward glyphicon glyphicon-minus" style="padding-top: 0.5em;"></span>
+        <span class="remove_customer_reward bi bi-dash" style="padding-top: 0.5em;"></span>
     </div>
 
 <?php } ?>

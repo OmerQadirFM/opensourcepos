@@ -10,18 +10,18 @@
 <div id="required_fields_message"><?= lang('Common.fields_required_message') ?></div>
 <ul id="error_message_box" class="error_message_box"></ul>
 
-<?= form_open("items/saveInventory/$item_info->item_id", ['id' => 'item_form', 'class' => 'form-horizontal']) ?>
+<?= form_open("items/saveInventory/$item_info->item_id", ['id' => 'item_form', 'class' => 'ospos-form']) ?>
     <fieldset id="inv_item_basic_info">
 
-        <div class="form-group form-group-sm">
-            <?= form_label(lang('Items.item_number'), 'name', ['class' => 'control-label col-xs-3']) ?>
-            <div class="col-xs-8">
+        <div class="row mb-3 ">
+            <?= form_label(lang('Items.item_number'), 'name', ['class' => 'col-form-label col-3']) ?>
+            <div class="col-8">
                 <div class="input-group">
-                    <span class="input-group-addon input-sm"><span class="glyphicon glyphicon-barcode"></span></span>
+                    <span class="input-group-text form-control-sm"><span class="bi bi-upc"></span></span>
                     <?= form_input([
                         'name'     => 'item_number',
                         'id'       => 'item_number',
-                        'class'    => 'form-control input-sm',
+                        'class'    => 'form-control form-control-sm',
                         'disabled' => '',
                         'value'    => $item_info->item_number
                     ]) ?>
@@ -29,28 +29,28 @@
             </div>
         </div>
 
-        <div class="form-group form-group-sm">
-            <?= form_label(lang('Items.name'), 'name', ['class' => 'control-label col-xs-3']) ?>
-            <div class="col-xs-8">
+        <div class="row mb-3 ">
+            <?= form_label(lang('Items.name'), 'name', ['class' => 'col-form-label col-3']) ?>
+            <div class="col-8">
                 <?= form_input([
                     'name'     => 'name',
                     'id'       => 'name',
-                    'class'    => 'form-control input-sm',
+                    'class'    => 'form-control form-control-sm',
                     'disabled' => '',
                     'value'    => $item_info->name
                 ]) ?>
             </div>
         </div>
 
-        <div class="form-group form-group-sm">
-            <?= form_label(lang('Items.category'), 'category', ['class' => 'control-label col-xs-3']) ?>
-            <div class="col-xs-8">
+        <div class="row mb-3 ">
+            <?= form_label(lang('Items.category'), 'category', ['class' => 'col-form-label col-3']) ?>
+            <div class="col-8">
                 <div class="input-group">
-                    <span class="input-group-addon input-sm"><span class="glyphicon glyphicon-tag"></span></span>
+                    <span class="input-group-text form-control-sm"><span class="bi bi-tag"></span></span>
                     <?= form_input([
                         'name'     => 'category',
                         'id'       => 'category',
-                        'class'    => 'form-control input-sm',
+                        'class'    => 'form-control form-control-sm',
                         'disabled' => '',
                         'value'    => $item_info->category
                     ]) ?>
@@ -58,44 +58,44 @@
             </div>
         </div>
 
-        <div class="form-group form-group-sm">
-            <?= form_label(lang('Items.stock_location'), 'stock_location', ['class' => 'control-label col-xs-3']) ?>
-            <div class="col-xs-8">
+        <div class="row mb-3 ">
+            <?= form_label(lang('Items.stock_location'), 'stock_location', ['class' => 'col-form-label col-3']) ?>
+            <div class="col-8">
                 <?= form_dropdown('stock_location', $stock_locations, current($stock_locations), ['onchange' => 'fill_quantity(this.value)', 'class' => 'form-control']) ?>
             </div>
         </div>
 
-        <div class="form-group form-group-sm">
-            <?= form_label(lang('Items.current_quantity'), 'quantity', ['class' => 'control-label col-xs-3']) ?>
-            <div class="col-xs-4">
+        <div class="row mb-3 ">
+            <?= form_label(lang('Items.current_quantity'), 'quantity', ['class' => 'col-form-label col-3']) ?>
+            <div class="col-4">
                 <?= form_input([
                     'name'     => 'quantity',
                     'id'       => 'quantity',
-                    'class'    => 'form-control input-sm',
+                    'class'    => 'form-control form-control-sm',
                     'disabled' => '',
                     'value'    => to_quantity_decimals(current($item_quantities))
                 ]) ?>
             </div>
         </div>
 
-        <div class="form-group form-group-sm">
-            <?= form_label(lang('Items.add_minus'), 'quantity', ['class' => 'control-label col-xs-3 text-danger required']) ?>
-            <div class="col-xs-4">
+        <div class="row mb-3 ">
+            <?= form_label(lang('Items.add_minus'), 'quantity', ['class' => 'col-form-label col-3 text-danger required']) ?>
+            <div class="col-4">
                 <?= form_input([
                     'name'  => 'newquantity',
                     'id'    => 'newquantity',
-                    'class' => 'form-control input-sm'
+                    'class' => 'form-control form-control-sm'
                 ]) ?>
             </div>
         </div>
 
-        <div class="form-group form-group-sm">
-            <?= form_label(lang('Items.inventory_comments'), 'description', ['class' => 'control-label col-xs-3']) ?>
-            <div class="col-xs-8">
+        <div class="row mb-3 ">
+            <?= form_label(lang('Items.inventory_comments'), 'description', ['class' => 'col-form-label col-3']) ?>
+            <div class="col-8">
                 <?= form_textarea([
                     'name'  => 'trans_comment',
                     'id'    => 'trans_comment',
-                    'class' => 'form-control input-sm'
+                    'class' => 'form-control form-control-sm'
                 ]) ?>
             </div>
         </div>

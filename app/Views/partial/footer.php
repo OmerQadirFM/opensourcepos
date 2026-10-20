@@ -5,10 +5,10 @@ use Config\OSPOS;
 ?>
 
             </div>
-        </div>
+        </main>
 
         <div id="footer">
-            <div class="jumbotron push-spaces">
+            <div class="bg-body-tertiary p-4 push-spaces">
                 <strong>
                     <?= lang('Common.copyrights', [date('Y')]) ?> ·
                     <a href="https://opensourcepos.org" target="_blank"><?= lang('Common.website') ?></a> ·

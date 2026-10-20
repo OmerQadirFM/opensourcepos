@@ -13,22 +13,22 @@ foreach ($stock_locations as $location => $location_data) {
     ++$i;
 ?>
 
-    <div class="form-group form-group-sm" style="<?= $location_data['deleted'] ? 'display: none;' : 'display: block;' ?>">
-        <?= form_label(lang('Config.stock_location') . " $i", "stock_location_$i", ['class' => 'control-label col-xs-3 col-sm-2 text-danger required']) ?>
-        <div class="col-xs-7 col-sm-4 col-md-3">
+    <div class="row mb-3 " style="<?= $location_data['deleted'] ? 'display: none;' : 'display: block;' ?>">
+        <?= form_label(lang('Config.stock_location') . " $i", "stock_location_$i", ['class' => 'col-form-label col-3 col-sm-2 text-danger required']) ?>
+        <div class="col-7 col-sm-4 col-md-3">
             <?php $form_data = [
                 'name'  => "stock_location[$location_id]",
                 'id'    => "stock_location[$location_id]",
-                'class' => 'stock_location valid_chars form-control input-sm required',
+                'class' => 'stock_location valid_chars form-control form-control-sm required',
                 'value' => $location_name
             ];
             $location_data['deleted'] && $form_data['disabled'] = 'disabled';
             echo form_input($form_data);
             ?>
         </div>
-        <span class="add_stock_location glyphicon glyphicon-plus" style="padding-top: 0.5em;"></span>
+        <span class="add_stock_location bi bi-plus-lg" style="padding-top: 0.5em;"></span>
         <span>&nbsp;&nbsp;</span>
-        <span class="remove_stock_location glyphicon glyphicon-minus" style="padding-top: 0.5em;"></span>
+        <span class="remove_stock_location bi bi-dash" style="padding-top: 0.5em;"></span>
     </div>
 
 <?php } ?>

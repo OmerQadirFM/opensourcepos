@@ -5,16 +5,16 @@
  */
 ?>
 
-<?= form_open('config/saveEmail/', ['id' => 'email_config_form', 'enctype' => 'multipart/form-data', 'class' => 'form-horizontal']) ?>
+<?= form_open('config/saveEmail/', ['id' => 'email_config_form', 'enctype' => 'multipart/form-data', 'class' => 'ospos-form']) ?>
     <div id="config_wrapper">
         <fieldset id="config_info">
 
             <div id="required_fields_message"><?= lang('Common.fields_required_message') ?></div>
             <ul id="email_error_message_box" class="error_message_box"></ul>
 
-            <div class="form-group form-group-sm">
-                <?= form_label(lang('Config.email_protocol'), 'protocol', ['class' => 'control-label col-xs-3 col-sm-2']) ?>
-                <div class="col-xs-9 col-sm-4 col-md-3 col-lg-2">
+            <div class="row mb-3 ">
+                <?= form_label(lang('Config.email_protocol'), 'protocol', ['class' => 'col-form-label col-3 col-sm-2']) ?>
+                <div class="col-9 col-sm-4 col-md-3 col-lg-2">
                     <?= form_dropdown(
                         'protocol',
                         [
@@ -23,51 +23,51 @@
                             'smtp'     => 'SMTP'
                         ],
                         $config['protocol'],
-                        'class="form-control input-sm" id="protocol"'
+                        'class="form-control form-control-sm" id="protocol"'
                     ) ?>
                 </div>
             </div>
 
-            <div class="form-group form-group-sm">
-                <?= form_label(lang('Config.email_mailpath'), 'mailpath', ['class' => 'control-label col-xs-3 col-sm-2']) ?>
-                <div class="col-xs-9 col-sm-6 col-md-5 col-lg-4">
+            <div class="row mb-3 ">
+                <?= form_label(lang('Config.email_mailpath'), 'mailpath', ['class' => 'col-form-label col-3 col-sm-2']) ?>
+                <div class="col-9 col-sm-6 col-md-5 col-lg-4">
                     <?= form_input([
                         'name'  => 'mailpath',
                         'id'    => 'mailpath',
-                        'class' => 'form-control input-sm',
+                        'class' => 'form-control form-control-sm',
                         'value' => $config['mailpath']
                     ]) ?>
                 </div>
             </div>
 
-            <div class="form-group form-group-sm">
-                <?= form_label(lang('Config.email_smtp_host'), 'smtp_host', ['class' => 'control-label col-xs-3 col-sm-2']) ?>
-                <div class="col-xs-9 col-sm-6 col-md-5 col-lg-4">
+            <div class="row mb-3 ">
+                <?= form_label(lang('Config.email_smtp_host'), 'smtp_host', ['class' => 'col-form-label col-3 col-sm-2']) ?>
+                <div class="col-9 col-sm-6 col-md-5 col-lg-4">
                     <?= form_input([
                         'name'  => 'smtp_host',
                         'id'    => 'smtp_host',
-                        'class' => 'form-control input-sm',
+                        'class' => 'form-control form-control-sm',
                         'value' => $config['smtp_host']
                     ]) ?>
                 </div>
             </div>
 
-            <div class="form-group form-group-sm">
-                <?= form_label(lang('Config.email_smtp_port'), 'smtp_port', ['class' => 'control-label col-xs-3 col-sm-2']) ?>
-                <div class="col-xs-9 col-sm-4 col-md-3 col-lg-2">
+            <div class="row mb-3 ">
+                <?= form_label(lang('Config.email_smtp_port'), 'smtp_port', ['class' => 'col-form-label col-3 col-sm-2']) ?>
+                <div class="col-9 col-sm-4 col-md-3 col-lg-2">
                     <?= form_input([
                         'type'  => 'number',
                         'name'  => 'smtp_port',
                         'id'    => 'smtp_port',
-                        'class' => 'form-control input-sm',
+                        'class' => 'form-control form-control-sm',
                         'value' => $config['smtp_port']
                     ]) ?>
                 </div>
             </div>
 
-            <div class="form-group form-group-sm">
-                <?= form_label(lang('Config.email_smtp_crypto'), 'smtp_crypto', ['class' => 'control-label col-xs-3 col-sm-2']) ?>
-                <div class="col-xs-9 col-sm-4 col-md-3 col-lg-2">
+            <div class="row mb-3 ">
+                <?= form_label(lang('Config.email_smtp_crypto'), 'smtp_crypto', ['class' => 'col-form-label col-3 col-sm-2']) ?>
+                <div class="col-9 col-sm-4 col-md-3 col-lg-2">
                     <?= form_dropdown(
                         'smtp_crypto',
                         [
@@ -76,52 +76,52 @@
                             'ssl' => 'SSL'
                         ],
                         $config['smtp_crypto'],
-                        'class="form-control input-sm" id="smtp_crypto"'
+                        'class="form-control form-control-sm" id="smtp_crypto"'
                     ) ?>
                 </div>
             </div>
 
-            <div class="form-group form-group-sm">
-                <?= form_label(lang('Config.email_smtp_timeout'), 'smtp_timeout', ['class' => 'control-label col-xs-3 col-sm-2']) ?>
-                <div class="col-xs-9 col-sm-4 col-md-3 col-lg-2">
+            <div class="row mb-3 ">
+                <?= form_label(lang('Config.email_smtp_timeout'), 'smtp_timeout', ['class' => 'col-form-label col-3 col-sm-2']) ?>
+                <div class="col-9 col-sm-4 col-md-3 col-lg-2">
                     <?= form_input([
                         'type'  => 'number',
                         'name'  => 'smtp_timeout',
                         'id'    => 'smtp_timeout',
-                        'class' => 'form-control input-sm',
+                        'class' => 'form-control form-control-sm',
                         'value' => $config['smtp_timeout']
                     ]) ?>
                 </div>
             </div>
 
-            <div class="form-group form-group-sm">
-                <?= form_label(lang('Config.email_smtp_user'), 'smtp_user', ['class' => 'control-label col-xs-3 col-sm-2']) ?>
-                <div class="col-xs-9 col-sm-6 col-md-5 col-lg-4">
+            <div class="row mb-3 ">
+                <?= form_label(lang('Config.email_smtp_user'), 'smtp_user', ['class' => 'col-form-label col-3 col-sm-2']) ?>
+                <div class="col-9 col-sm-6 col-md-5 col-lg-4">
                     <div class="input-group">
-                        <span class="input-group-addon input-sm">
-                            <span class="glyphicon glyphicon-user"></span>
+                        <span class="input-group-text form-control-sm">
+                            <span class="bi bi-person"></span>
                         </span>
                         <?= form_input([
                             'name'  => 'smtp_user',
                             'id'    => 'smtp_user',
-                            'class' => 'form-control input-sm',
+                            'class' => 'form-control form-control-sm',
                             'value' => $config['smtp_user']
                         ]) ?>
                     </div>
                 </div>
             </div>
 
-            <div class="form-group form-group-sm">
-                <?= form_label(lang('Config.email_smtp_pass'), 'smtp_pass', ['class' => 'control-label col-xs-3 col-sm-2']) ?>
-                <div class="col-xs-9 col-sm-6 col-md-5 col-lg-4">
+            <div class="row mb-3 ">
+                <?= form_label(lang('Config.email_smtp_pass'), 'smtp_pass', ['class' => 'col-form-label col-3 col-sm-2']) ?>
+                <div class="col-9 col-sm-6 col-md-5 col-lg-4">
                     <div class="input-group">
-                        <span class="input-group-addon input-sm">
-                            <span class="glyphicon glyphicon-asterisk"></span>
+                        <span class="input-group-text form-control-sm">
+                            <span class="bi bi-asterisk"></span>
                         </span>
                         <input type="password"
                                name="smtp_pass"
                                id="smtp_pass"
-                               class="form-control input-sm"
+                               class="form-control form-control-sm"
                                placeholder="<?= !empty($smtp_pass_set) ? lang('Config.email_smtp_pass_set') : esc(lang('Config.email_smtp_pass')) ?>"
                                autocomplete="off">
                     </div>
@@ -132,7 +132,7 @@
                 'name'  => 'submit_email',
                 'id'    => 'submit_email',
                 'value' => lang('Common.submit'),
-                'class' => 'btn btn-primary btn-sm pull-right'
+                'class' => 'btn btn-primary btn-sm float-end'
             ]) ?>
 
         </fieldset>

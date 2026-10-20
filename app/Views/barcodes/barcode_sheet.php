@@ -10,7 +10,7 @@ $barcode_lib = new Barcode_lib();
 ?>
 
 <!doctype html>
-<html lang="<?= current_language_code() ?>">
+<html lang="<?= esc(current_language_code(), 'attr') ?>" dir="<?= currentLanguageDirection() ?>">
 
 <head>
     <meta charset="utf-8">

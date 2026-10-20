@@ -17,9 +17,9 @@
 <div id="page_subtitle"><?= esc($subtitle) ?></div>
 
 <div id="toolbar">
-    <div class="pull-left form-inline" role="toolbar">
+    <div class="float-start d-flex flex-wrap align-items-center gap-2" role="toolbar">
         <!-- Toggle Button -->
-        <button id="toggleCostProfitButton" class="btn btn-default btn-sm print_hide">
+        <button id="toggleCostProfitButton" class="btn btn-secondary btn-sm print_hide">
             <?php echo lang('Reports.toggle_cost_and_profit'); ?>
         </button>
     </div>
@@ -64,7 +64,7 @@
                 data: <?= json_encode($summary_data) ?>,
                 iconSize: 'sm',
                 loadingTemplate: function (loadingMessage) {
-                    return '<div class="loading-message text-center"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span><span role="status">' + loadingMessage + '</span></div>';
+                    return '<div class="loading-message text-center"><span class="bi bi-arrow-clockwise icon-spin"></span><span role="status">' + loadingMessage + '</span></div>';
                 },
                 loadingFontSize: '1em',
                 paginationVAlign: 'bottom',

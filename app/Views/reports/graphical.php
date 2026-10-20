@@ -20,9 +20,9 @@
 <div class="ct-chart ct-golden-section" id="chart1"></div>
 
 <div id="toolbar">
-    <div class="pull-left form-inline" role="toolbar">
+    <div class="float-start d-flex flex-wrap align-items-center gap-2" role="toolbar">
         <!-- Toggle Button -->
-        <button id="toggleCostProfitButton" class="btn btn-default btn-sm print_hide">
+        <button id="toggleCostProfitButton" class="btn btn-secondary btn-sm print_hide">
             <?php echo lang('Reports.toggle_cost_and_profit'); ?>
         </button>
     </div>
